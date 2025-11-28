@@ -1,0 +1,15 @@
+mat-form-field {
+    display: block;
+}
+
+.login-form {
+    width: 400px;
+    margin: auto;
+    align-content: center;
+    flex: auto;
+}
+
+.align-end {
+    text-align: flex;
+    justify-content: flex-end;
+}
