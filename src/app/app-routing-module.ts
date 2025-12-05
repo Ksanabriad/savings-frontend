@@ -14,7 +14,7 @@ import { AuthorizationGuard } from './guards/authorization.guards';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },  // ← RAÍZ → /login
+  { path: '', component: Login },  // ← RAÍZ → /login
   { path: 'login', component: Login },                    // ← LOGIN
   {
     path: 'admin', component: AdminTemplateComponent, // ← Layout principal
@@ -26,7 +26,9 @@ const routes: Routes = [
         path: "loadEstudiantes", component: LoadEstudiantes,
         canActivate: [AuthorizationGuard], data: { roles: ['ADMIN'] }
       },
-      { path: "loadPagos", component: LoadPagos },
+      { path: "loadPagos", component: LoadPagos,
+        canActivate: [AuthorizationGuard], data: { roles: ['ADMIN'] }
+      },
       { path: "dashboard", component: Dashboard },
       { path: "estudiantes", component: Estudiantes },
       { path: "pagos", component: Pagos }

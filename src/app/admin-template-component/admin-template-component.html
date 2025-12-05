@@ -3,16 +3,16 @@
         <mat-icon>menu</mat-icon>
     </button>
     <span style="flex: auto;"></span>
-    <button mat-button routerLink="admin/home">Home</button>
-    <button mat-button routerLink="admin/profile">Perfil</button>
+    <button mat-button routerLink="home">Home</button>
+    <button mat-button routerLink="profile">Perfil</button>
     <!--Solo los usuarios ADMIN acceden a la opcion de Importar menu-->
     <button mat-button *ngIf="auth.roles.includes('ADMIN')" [matMenuTriggerFor]="importMenu">
         <mat-icon iconPositionEnd>keyboard_arrow_down</mat-icon>
         Importar
     </button>
     <mat-menu #importMenu>
-        <button mat-menu-item routerLink="admin/loadEstudiantes">Cargar Estudiante</button>
-        <button mat-menu-item routerLink="admin/loadPagos">Cargar Pagos</button>
+        <button mat-menu-item routerLink="loadEstudiantes">Cargar Estudiante</button>
+        <button mat-menu-item routerLink="loadPagos">Cargar Pagos</button>
     </mat-menu>
     <!-- Mostrar el nombre del usuario autenticado -->
     <button mat-button *ngIf="auth.isAuthenticated">
@@ -25,19 +25,19 @@
     <mat-drawer #myDrawer opened="true" mode="side" position="start">
         <mat-list>
             <mat-list-item>
-                <button mat-button routerLink="admin/dashboard">
+                <button mat-button routerLink="dashboard">
                     <mat-icon>dashboard</mat-icon>
                     Dashboard
                 </button>
             </mat-list-item>
             <mat-list-item>
-                <button mat-button routerLink="admin/estudiantes">
+                <button mat-button routerLink="estudiantes">
                     <mat-icon>dashboard</mat-icon>
                     Estudiantes
                 </button>
             </mat-list-item>
             <mat-list-item>
-                <button mat-button routerLink="admin/pagos">
+                <button mat-button routerLink="pagos">
                     <mat-icon>dashboard</mat-icon>
                     Pagos
                 </button>
