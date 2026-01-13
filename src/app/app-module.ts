@@ -35,6 +35,7 @@ import { NewPago } from './new-pago/new-pago';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { Landing } from './landing/landing';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { MatSelectModule } from '@angular/material/select';
     Dashboard,
     EstudianteDetails,
     NewPago,
+    Landing,
   ],
   imports: [
     BrowserModule,
@@ -83,4 +85,4 @@ import { MatSelectModule } from '@angular/material/select';
   ],
   bootstrap: [App],
 })
-export class AppModule {}
+export class AppModule { }

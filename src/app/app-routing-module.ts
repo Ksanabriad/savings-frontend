@@ -13,9 +13,10 @@ import { AuthGuard } from './guards/auth-guard';
 import { AuthorizationGuard } from './guards/authorization.guards';
 import { EstudianteDetails } from './estudiante-details/estudiante-details';
 import { NewPago } from './new-pago/new-pago';
+import { Landing } from './landing/landing';
 
 const routes: Routes = [
-  { path: '', component: Login }, // ← RAÍZ → /login
+  { path: '', component: Landing }, // ← RAÍZ → /landing
   { path: 'login', component: Login }, // ← LOGIN
   {
     path: 'admin',
@@ -49,4 +50,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
