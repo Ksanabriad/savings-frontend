@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment.development';
   providedIn: 'root',
 })
 export class EstudiantesService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public getAllPagos(): Observable<Array<Pago>> {
     return this.http.get<Array<Pago>>(`${environment.backendHost}/pagos`);
@@ -18,4 +18,11 @@ export class EstudiantesService {
     return this.http.get<Array<Estudiante>>(`${environment.backendHost}/estudiantes`);
   }
 
+  public getPagosDeEstudiante(codigo: string): Observable<Array<Pago>> {
+    return this.http.get<Array<Pago>>(`${environment.backendHost}/estudiantes/${codigo}/pagos`);
+  }
+
+  public guardarPago(formData: any): Observable<Pago> {
+    return this.http.post<Pago>(`${environment.backendHost}/pagos`, formData);
+  }
 }

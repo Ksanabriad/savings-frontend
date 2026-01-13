@@ -8,10 +8,7 @@ import { Auth } from '../services/auth';
   styleUrl: './admin-template-component.css',
 })
 export class AdminTemplateComponent {
-
-  constructor(public auth: Auth) {
-
-  }
+  constructor(public auth: Auth) {}
   logout() {
     this.auth.logout();
   }

@@ -1,6 +1,5 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { AdminTemplateComponent } from './admin-template-component/admin-template-component';
@@ -28,9 +27,14 @@ import { MatTableModule } from '@angular/material/table';
 import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { CdkColumnDef } from "@angular/cdk/table";
+import { CdkColumnDef } from '@angular/cdk/table';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getSpanishPaginatorIntl } from './utils/spanish-paginator-intl';
+import { EstudianteDetails } from './estudiante-details/estudiante-details';
+import { NewPago } from './new-pago/new-pago';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,9 @@ import { getSpanishPaginatorIntl } from './utils/spanish-paginator-intl';
     Login,
     Pagos,
     Estudiantes,
-    Dashboard
+    Dashboard,
+    EstudianteDetails,
+    NewPago,
   ],
   imports: [
     BrowserModule,
@@ -62,15 +68,19 @@ import { getSpanishPaginatorIntl } from './utils/spanish-paginator-intl';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    CdkColumnDef
+    CdkColumnDef,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    ReactiveFormsModule,
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideClientHydration(withEventReplay()),
     AuthGuard,
     AuthorizationGuard,
-    { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() }
+    { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() },
   ],
-  bootstrap: [App]
+  bootstrap: [App],
 })
-export class AppModule { }
+export class AppModule {}

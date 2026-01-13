@@ -12,7 +12,6 @@ import { EstudiantesService } from '../services/estudiantes.service';
   styleUrl: './pagos.css',
 })
 export class Pagos implements OnInit {
-
   public pagos: any;
   public dataSource: any;
   public displayedColumns = ['id', 'fecha', 'cantidad', 'type', 'status', 'nombre'];
@@ -21,19 +20,22 @@ export class Pagos implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+  constructor(
+    private http: HttpClient,
+    private estudiantesServices: EstudiantesService,
+  ) {}
 
-  constructor(private http: HttpClient, private estudiantesServices: EstudiantesService) { }
   ngOnInit(): void {
     this.estudiantesServices.getAllPagos().subscribe({
-      next: data => {
+      next: (data) => {
         this.pagos = data;
         this.dataSource = new MatTableDataSource(this.pagos);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },
-      error: err => {
+      error: (err) => {
         console.log(err);
-      }
-    })
+      },
+    });
   }
 }
