@@ -16,7 +16,7 @@ export class Login implements OnInit {
     private formBuilder: FormBuilder,
     private auth: Auth,
     private router: Router,
-  ) {} // Inyecta FormBuilder
+  ) { } // Inyecta FormBuilder
 
   // Se ejecuta al inicializar el componente
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class Login implements OnInit {
     let password = this.loginForm.value.password;
     let auth: boolean = this.auth.login(username, password);
     if (auth == true) {
-      this.router.navigateByUrl('/admin');
+      this.router.navigateByUrl('/admin/dashboard');
     }
   }
 }
