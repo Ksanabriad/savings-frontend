@@ -52,4 +52,8 @@ export class Login implements OnInit {
       window.location.href = url;
     }
   }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
+  }
 }

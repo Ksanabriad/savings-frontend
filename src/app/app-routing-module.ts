@@ -14,10 +14,12 @@ import { AuthorizationGuard } from './guards/authorization.guards';
 import { EstudianteDetails } from './estudiante-details/estudiante-details';
 import { NewPago } from './new-pago/new-pago';
 import { Landing } from './landing/landing';
+import { Register } from './register/register';
 
 const routes: Routes = [
   { path: '', component: Landing }, // ← RAÍZ → /landing
   { path: 'login', component: Login }, // ← LOGIN
+  { path: 'register', component: Register },
   {
     path: 'admin',
     component: AdminTemplateComponent, // ← Layout principal

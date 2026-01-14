@@ -36,6 +36,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { Landing } from './landing/landing';
+import { Register } from './register/register';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { Landing } from './landing/landing';
     EstudianteDetails,
     NewPago,
     Landing,
+    Register,
   ],
   imports: [
     BrowserModule,

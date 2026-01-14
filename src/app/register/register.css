@@ -1,0 +1,136 @@
+:host {
+    --primary-grad: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    --dark-slate: #0f172a;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --bg-gradient: radial-gradient(circle at top right, #f8fafc, #e2e8f0);
+}
+
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--bg-gradient);
+    font-family: 'Inter', sans-serif;
+    padding: 2rem;
+}
+
+.login-card {
+    background: white;
+    width: 100%;
+    max-width: 450px;
+    padding: 3.5rem;
+    border-radius: 35px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--dark-slate);
+    margin-bottom: 1rem;
+}
+
+.logo span {
+    color: #10b981;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--dark-slate);
+    margin: 0;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+    color: var(--text-main);
+}
+
+.input-container input {
+    width: 100%;
+    padding: 1.1rem 1.2rem;
+    border: 2px solid #f1f5f9;
+    border-radius: 16px;
+    background: #f8fafc;
+    font-size: 1rem;
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+
+.input-container input:focus {
+    outline: none;
+    border-color: #10b981;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+.btn-secondary {
+    flex: 1;
+    padding: 1.2rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    color: var(--text-muted);
+    border-radius: 18px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #f8fafc;
+}
+
+.btn-login-gradient {
+    flex: 2;
+    padding: 1.2rem;
+    background: var(--primary-grad);
+    color: white;
+    border: none;
+    border-radius: 18px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+    transition: transform 0.2s;
+}
+
+.btn-login-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px rgba(16, 185, 129, 0.3);
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
