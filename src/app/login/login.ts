@@ -34,4 +34,22 @@ export class Login implements OnInit {
       this.router.navigateByUrl('/admin/dashboard');
     }
   }
+
+  loginWithSocial(provider: string): void {
+    let url = '';
+    switch (provider) {
+      case 'google':
+        url = 'https://accounts.google.com/signin';
+        break;
+      case 'facebook':
+        url = 'https://www.facebook.com/login';
+        break;
+      case 'apple':
+        url = 'https://appleid.apple.com/sign-in';
+        break;
+    }
+    if (url) {
+      window.location.href = url;
+    }
+  }
 }
