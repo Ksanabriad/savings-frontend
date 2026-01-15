@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsuariosService } from '../services/usuarios.service';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-register',
@@ -10,8 +12,13 @@ import { Router } from '@angular/router';
 })
 export class Register implements OnInit {
     public registerForm!: FormGroup;
+    // ... existing properties ...
+    public errorMessage: string | null = null;
+    public emailError: string | null = null;
+    public usernameError: string | null = null;
+    public submitted = false;
 
-    constructor(private formBuilder: FormBuilder, private router: Router) { }
+    constructor(private formBuilder: FormBuilder, private router: Router, private apiService: UsuariosService) { }
 
     ngOnInit(): void {
         this.registerForm = this.formBuilder.group(
@@ -32,14 +39,32 @@ export class Register implements OnInit {
     }
 
     save() {
+        this.submitted = true;
+        this.registerForm.markAllAsTouched();
+
         if (this.registerForm.valid) {
-            // Logic to save the user would go here
-            console.log('User registered:', this.registerForm.value);
-            // For now, redirect to login
-            this.router.navigate(['/login']);
-        } else {
-            console.log('Form is invalid');
-            this.registerForm.markAllAsTouched();
+            this.apiService.register(this.registerForm.value).subscribe({
+                next: (user) => {
+                    Swal.fire({
+                        title: 'Usuario registrado',
+                        text: 'Usuario registrado con éxito',
+                        icon: 'success',
+                    });
+                    this.router.navigate(['/login']);
+                },
+                error: (err) => {
+                    console.error('Error registering user', err);
+                    const errorMsg = err.error?.toLowerCase() || '';
+
+                    if (errorMsg.includes('email')) {
+                        this.registerForm.get('email')?.setErrors({ backendError: err.error });
+                    } else if (errorMsg.includes('usuario') || errorMsg.includes('username')) {
+                        this.registerForm.get('username')?.setErrors({ backendError: err.error });
+                    } else {
+                        this.errorMessage = err.error || 'Error al registrar usuario.';
+                    }
+                }
+            });
         }
     }
 
