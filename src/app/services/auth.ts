@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from './api.service';
+import { UsuariosService } from './usuarios.service';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class Auth {
-  constructor(private router: Router, private apiService: ApiService) { }
+  constructor(private router: Router, private apiService: UsuariosService) { }
 
   public login(username: string, password: string): Observable<boolean> {
     return this.apiService.login({ username, password }).pipe(
