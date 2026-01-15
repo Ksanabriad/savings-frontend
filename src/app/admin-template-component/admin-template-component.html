@@ -3,16 +3,6 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span style="flex: auto"></span>
-
-  <!--Solo los usuarios ADMIN acceden a la opcion de Importar menu-->
-  <button mat-button *ngIf="auth.isAdmin()" [matMenuTriggerFor]="importMenu">
-    <mat-icon iconPositionEnd>keyboard_arrow_down</mat-icon>
-    Importar
-  </button>
-  <mat-menu #importMenu>
-    <button mat-menu-item routerLink="loadEstudiantes">Cargar Estudiante</button>
-    <button mat-menu-item routerLink="loadPagos">Cargar Pagos</button>
-  </mat-menu>
   <!-- Mostrar el nombre del usuario autenticado -->
   <button mat-button *ngIf="auth.isAuthenticated()">
     {{ auth.getUsername() }}
@@ -30,15 +20,21 @@
         </button>
       </mat-list-item>
       <mat-list-item>
-        <button mat-button routerLink="estudiantes">
-          <mat-icon>dashboard</mat-icon>
-          Estudiantes
+        <button mat-button routerLink="finanzas">
+          <mat-icon>account_balance_wallet</mat-icon>
+          Finanzas
         </button>
       </mat-list-item>
       <mat-list-item>
-        <button mat-button routerLink="pagos">
+        <button mat-button routerLink="conceptos">
+          <mat-icon>label</mat-icon>
+          Conceptos
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="estudiantes">
           <mat-icon>dashboard</mat-icon>
-          Pagos
+          Estudiantes
         </button>
       </mat-list-item>
     </mat-list>

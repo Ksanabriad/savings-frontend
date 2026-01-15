@@ -11,10 +11,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 
 
-import { LoadEstudiantes } from './load-estudiantes/load-estudiantes';
-import { LoadPagos } from './load-pagos/load-pagos';
 import { Login } from './login/login';
-import { Pagos } from './pagos/pagos';
+import { Finanzas } from './finanzas/finanzas';
 import { Estudiantes } from './estudiantes/estudiantes';
 import { Dashboard } from './dashboard/dashboard';
 import { MatCardModule } from '@angular/material/card';
@@ -31,7 +29,8 @@ import { CdkColumnDef } from '@angular/cdk/table';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getSpanishPaginatorIntl } from './utils/spanish-paginator-intl';
 import { EstudianteDetails } from './estudiante-details/estudiante-details';
-import { NewPago } from './new-pago/new-pago';
+import { NewFinanza } from './new-finanza/new-finanza';
+import { Conceptos } from './conceptos/conceptos';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
@@ -42,16 +41,13 @@ import { Register } from './register/register';
   declarations: [
     App,
     AdminTemplateComponent,
-
-
-    LoadEstudiantes,
-    LoadPagos,
     Login,
-    Pagos,
+    Finanzas,
     Estudiantes,
     Dashboard,
     EstudianteDetails,
-    NewPago,
+    NewFinanza,
+    Conceptos,
     Landing,
     Register,
   ],
