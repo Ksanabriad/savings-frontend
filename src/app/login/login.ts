@@ -37,7 +37,13 @@ export class Login implements OnInit {
         if (success) {
           this.router.navigateByUrl('/admin/dashboard');
         } else {
-          alert('Credenciales incorrectas');
+          Swal.fire({
+            title: 'Error de acceso',
+            text: 'Credenciales incorrectas. Por favor, verifica tu usuario o contraseña.',
+            icon: 'error',
+            confirmButtonText: 'Reintentar',
+            confirmButtonColor: '#ef4444'
+          });
         }
       });
     }
