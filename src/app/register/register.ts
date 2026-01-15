@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuariosService } from '../services/usuarios.service';
+import { Usuario } from '../models/usuarios.model';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -44,7 +45,7 @@ export class Register implements OnInit {
 
         if (this.registerForm.valid) {
             this.apiService.register(this.registerForm.value).subscribe({
-                next: (user) => {
+                next: (user: Usuario) => {
                     Swal.fire({
                         title: 'Usuario registrado',
                         text: 'Usuario registrado con éxito',
@@ -52,7 +53,7 @@ export class Register implements OnInit {
                     });
                     this.router.navigate(['/login']);
                 },
-                error: (err) => {
+                error: (err: any) => {
                     console.error('Error registering user', err);
                     const errorMsg = err.error?.toLowerCase() || '';
 
