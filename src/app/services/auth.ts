@@ -1,34 +1,49 @@
 import { Injectable } from '@angular/core';
+import { ApiService } from './api.service';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
-  public users: any = {
-    admin: { password: '1234', roles: ['ESTUDIANTE', 'ADMIN'] },
-    user1: { password: '1234', roles: ['ESTUDIANTE'] },
-  };
-  public username: any;
-  public isAuthenticated: boolean = false;
-  public roles: string[] = [];
-  constructor(private router: Router) {}
+  constructor(private router: Router, private apiService: ApiService) { }
 
-  public login(username: string, password: string): boolean {
-    if (this.users[username] && this.users[username].password === password) {
-      this.username = username;
-      this.isAuthenticated = true;
-      this.roles = this.users[username].roles;
-      return true;
-    } else {
-      return false;
-    }
+  public login(username: string, password: string): Observable<boolean> {
+    return this.apiService.login({ username, password }).pipe(
+      map(user => {
+        if (user) {
+          localStorage.setItem('role', user.rol);
+          localStorage.setItem('username', user.username);
+          return true;
+        }
+        return false;
+      }),
+      catchError(() => of(false))
+    );
   }
 
   logout() {
-    this.isAuthenticated = false;
-    this.roles = [];
-    this.username = undefined;
+    localStorage.removeItem('role');
+    localStorage.removeItem('username');
     this.router.navigateByUrl('/login');
+  }
+
+  public getRole(): string | null {
+    return localStorage.getItem('role');
+  }
+
+  public getUsername(): string | null {
+    return localStorage.getItem('username');
+  }
+
+  public isAdmin() {
+    let role = localStorage.getItem('role');
+    return role == 'ADMIN';
+  }
+
+  public isAuthenticated(): boolean {
+    return !!localStorage.getItem('username');
   }
 }
