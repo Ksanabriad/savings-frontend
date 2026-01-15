@@ -10,6 +10,23 @@ table {
     width: 100%;
 }
 
+.filter-bar {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
 .ingreso {
     color: #10b981;
     font-weight: bold;

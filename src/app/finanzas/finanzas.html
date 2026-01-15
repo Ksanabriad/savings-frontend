@@ -15,7 +15,44 @@
         </mat-card-header>
         <mat-divider></mat-divider>
         <mat-card-content>
+            <!-- Barra de Filtros -->
+            <div [formGroup]="filterForm" class="filter-bar">
+                <mat-form-field appearance="outline" *ngIf="auth.isAdmin()">
+                    <mat-label>Filtrar por Usuario</mat-label>
+                    <mat-select formControlName="usuario">
+                        <mat-option value="">Todos los usuarios</mat-option>
+                        <mat-option *ngFor="let u of usuarios" [value]="u.username">
+                            {{ u.username }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Rango de fechas</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate formControlName="fechaDesde" placeholder="Desde" />
+                        <input matEndDate formControlName="fechaHasta" placeholder="Hasta" />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+
+                <div class="filter-actions">
+                    <button mat-stroked-button color="primary" (click)="limpiarFiltros()">
+                        <mat-icon>filter_list_off</mat-icon> Limpiar
+                    </button>
+                    <button mat-raised-button color="accent" (click)="exportToExcel()">
+                        <mat-icon>description</mat-icon> Exportar Excel
+                    </button>
+                </div>
+            </div>
+
             <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+
+                <ng-container matColumnDef="usuario">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+                    <td mat-cell *matCellDef="let element">{{ element.usuario?.username }}</td>
+                </ng-container>
 
                 <ng-container matColumnDef="fecha">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
