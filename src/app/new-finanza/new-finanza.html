@@ -1,0 +1,59 @@
+<div class="container">
+    <mat-card [formGroup]="finanzaFormGroup" class="finanza-form">
+        <mat-card-header>
+            <mat-card-title>Nuevo Registro Financiero</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <div class="form-grid">
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fecha" />
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Concepto</mat-label>
+                    <mat-select formControlName="concepto">
+                        <mat-option *ngFor="let c of conceptos" [value]="c.nombre"> {{ c.nombre }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Cantidad</mat-label>
+                    <input matInput type="number" formControlName="cantidad" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select formControlName="tipo">
+                        <mat-option *ngFor="let t of tiposFinanza" [value]="t"> {{ t }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Medio de Pago</mat-label>
+                    <mat-select formControlName="medio">
+                        <mat-option *ngFor="let m of mediosPago" [value]="m"> {{ m }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Archivo (Opcional)</mat-label>
+                    <button type="button" mat-icon-button matPrefix (click)="f_input.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                    <input matInput readonly formControlName="fileName" />
+                    <input type="file" hidden #f_input (change)="selectFile($event)" accept="application/pdf" />
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button routerLink="/admin/finanzas">Volver</button>
+            <button (click)="guardarFinanza()" mat-raised-button color="primary" [disabled]="finanzaFormGroup.invalid">
+                Guardar Registro
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

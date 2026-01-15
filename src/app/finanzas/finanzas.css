@@ -1,0 +1,21 @@
+.container {
+    padding: 20px;
+}
+
+.mat-mdc-card-header {
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+}
+
+.ingreso {
+    color: #10b981;
+    font-weight: bold;
+}
+
+.egreso {
+    color: #ef4444;
+    font-weight: bold;
+}
