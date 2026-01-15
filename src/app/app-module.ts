@@ -9,8 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { Home } from './home/home';
-import { Profile } from './profile/profile';
+
+
 import { LoadEstudiantes } from './load-estudiantes/load-estudiantes';
 import { LoadPagos } from './load-pagos/load-pagos';
 import { Login } from './login/login';
@@ -42,8 +42,8 @@ import { Register } from './register/register';
   declarations: [
     App,
     AdminTemplateComponent,
-    Home,
-    Profile,
+
+
     LoadEstudiantes,
     LoadPagos,
     Login,

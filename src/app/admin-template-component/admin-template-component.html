@@ -3,8 +3,7 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span style="flex: auto"></span>
-  <button mat-button routerLink="home">Inicio</button>
-  <button mat-button routerLink="profile">Perfil</button>
+
   <!--Solo los usuarios ADMIN acceden a la opcion de Importar menu-->
   <button mat-button *ngIf="auth.isAdmin()" [matMenuTriggerFor]="importMenu">
     <mat-icon iconPositionEnd>keyboard_arrow_down</mat-icon>
