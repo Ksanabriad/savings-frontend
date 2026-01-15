@@ -29,28 +29,13 @@ export class Login implements OnInit {
   login(): void {
     let username = this.loginForm.value.username;
     let password = this.loginForm.value.password;
-    let auth: boolean = this.auth.login(username, password);
-    if (auth == true) {
-      this.router.navigateByUrl('/admin/dashboard');
-    }
-  }
-
-  loginWithSocial(provider: string): void {
-    let url = '';
-    switch (provider) {
-      case 'google':
-        url = 'https://accounts.google.com/signin';
-        break;
-      case 'facebook':
-        url = 'https://www.facebook.com/login';
-        break;
-      case 'apple':
-        url = 'https://appleid.apple.com/sign-in';
-        break;
-    }
-    if (url) {
-      window.location.href = url;
-    }
+    this.auth.login(username, password).subscribe(success => {
+      if (success) {
+        this.router.navigateByUrl('/admin/dashboard');
+      } else {
+        alert('Credenciales incorrectas');
+      }
+    });
   }
 
   goToRegister() {
