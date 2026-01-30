@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TipoFinanza, MedioPago } from '../models/estudiantes.model';
+import { TipoFinanza, MedioPago } from '../models/usuarios.model';
 import { FinanzasService } from '../services/finanzas.service';
 import { Auth } from '../services/auth';
 import Swal from 'sweetalert2';
@@ -14,8 +14,8 @@ import Swal from 'sweetalert2';
 })
 export class NewFinanza implements OnInit {
     finanzaFormGroup!: FormGroup;
-    tiposFinanza = Object.values(TipoFinanza);
-    mediosPago = Object.values(MedioPago);
+    tiposFinanza: any[] = [];
+    mediosPago: any[] = [];
     conceptos: any[] = [];
     pdfFileUrl!: string;
 
@@ -31,6 +31,8 @@ export class NewFinanza implements OnInit {
             next: (data) => this.conceptos = data,
             error: (err) => console.error(err)
         });
+        this.finanzasService.getTipos().subscribe(data => this.tiposFinanza = data);
+        this.finanzasService.getMedios().subscribe(data => this.mediosPago = data);
         this.finanzaFormGroup = this.fb.group({
             fecha: [new Date(), Validators.required],
             concepto: ['', Validators.required],

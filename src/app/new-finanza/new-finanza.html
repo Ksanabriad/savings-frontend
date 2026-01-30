@@ -28,14 +28,14 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Tipo</mat-label>
                     <mat-select formControlName="tipo">
-                        <mat-option *ngFor="let t of tiposFinanza" [value]="t"> {{ t }}</mat-option>
+                        <mat-option *ngFor="let t of tiposFinanza" [value]="t.nombre"> {{ t.nombre }}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
                     <mat-label>Medio de Pago</mat-label>
                     <mat-select formControlName="medio">
-                        <mat-option *ngFor="let m of mediosPago" [value]="m"> {{ m }}</mat-option>
+                        <mat-option *ngFor="let m of mediosPago" [value]="m.nombre"> {{ m.nombre }}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
