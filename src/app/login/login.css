@@ -103,7 +103,7 @@ h1 {
   width: 100%;
   padding: 1.2rem;
   background: var(--primary-grad);
-  color: white;
+  color: rgb(17, 138, 53);
   border: none;
   border-radius: 18px;
   font-size: 1.1rem;
