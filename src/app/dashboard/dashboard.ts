@@ -12,7 +12,7 @@ export class Dashboard {
 
   constructor(private router: Router) { }
 
-  goToUsuarios() {
-    this.router.navigate(['/admin/usuarios']);
+  goToFinanzas() {
+    this.router.navigate(['/admin/finanzas']);
   }
 }
