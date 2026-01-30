@@ -30,11 +30,25 @@
     letter-spacing: 1.2px;
 }
 
+.balance-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.balance-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
 .main-amount {
-    font-size: 4rem;
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
-    margin: 0.5rem 0;
+    margin: 0;
     color: var(--dark-bg);
+    line-height: 1.1;
 }
 
 .trend-badge {
@@ -43,11 +57,14 @@
     padding: 0.4rem 0.8rem;
     border-radius: 99px;
     font-weight: 700;
+    height: fit-content;
+    white-space: nowrap;
 }
 
 .growth-text {
     color: var(--text-light);
     font-size: 1rem;
+    margin: 0;
 }
 
 .action-buttons {
@@ -103,18 +120,41 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80px;
+    width: 60px;
+    /* Reducido para que quepan 6 */
 }
 
 .bar {
-    width: 40px;
-    border-radius: 8px 8px 0 0;
+    width: 35px;
+    border-radius: 12px 12px 4px 4px;
     background: #e2e8f0;
-    transition: height 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    cursor: pointer;
 }
 
-.bar.active {
-    background: #3b82f6;
+.bar:hover {
+    transform: translateY(-5px) scaleX(1.1);
+    filter: brightness(1.1);
+}
+
+.bar.bar-oct {
+    height: 65%;
+    background: linear-gradient(to top, #6366f1, #818cf8);
+}
+
+.bar.bar-nov {
+    height: 45%;
+    background: linear-gradient(to top, #f97316, #fdba74);
+}
+
+.bar.bar-dic {
+    height: 85%;
+    background: linear-gradient(to top, #22c55e, #4ade80);
+}
+
+.bar.bar-dic.active {
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
 }
 
 .bar-label {
@@ -179,6 +219,16 @@
     font-size: 2.5rem;
     font-weight: 800;
     color: var(--success);
+    line-height: 1.2;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.estimate-value span {
+    font-size: 1.2rem;
+    color: inherit;
+    font-weight: 400;
 }
 
 /* Transacciones */
