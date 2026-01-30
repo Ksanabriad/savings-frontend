@@ -13,22 +13,21 @@ import { MatListModule } from '@angular/material/list';
 
 import { Login } from './login/login';
 import { Finanzas } from './finanzas/finanzas';
-import { Estudiantes } from './estudiantes/estudiantes';
+import { Usuarios } from './usuarios/usuarios';
 import { Dashboard } from './dashboard/dashboard';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthGuard } from './guards/auth-guard';
 import { AuthorizationGuard } from './guards/authorization.guards';
 import { MatTableModule } from '@angular/material/table';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { CdkColumnDef } from '@angular/cdk/table';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getSpanishPaginatorIntl } from './utils/spanish-paginator-intl';
-import { EstudianteDetails } from './estudiante-details/estudiante-details';
 import { NewFinanza } from './new-finanza/new-finanza';
 import { Conceptos } from './conceptos/conceptos';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -36,6 +35,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { Landing } from './landing/landing';
 import { Register } from './register/register';
+import { NewUsuario } from './new-usuario/new-usuario';
+import { HistorialInformes } from './historial-informes/historial-informes';
 
 @NgModule({
   declarations: [
@@ -43,13 +44,14 @@ import { Register } from './register/register';
     AdminTemplateComponent,
     Login,
     Finanzas,
-    Estudiantes,
+    Usuarios,
     Dashboard,
-    EstudianteDetails,
     NewFinanza,
     Conceptos,
     Landing,
     Register,
+    NewUsuario,
+    HistorialInformes,
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,6 @@ import { Register } from './register/register';
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
@@ -73,6 +74,7 @@ import { Register } from './register/register';
     MatNativeDateModule,
     MatSelectModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -80,6 +82,7 @@ import { Register } from './register/register';
     AuthGuard,
     AuthorizationGuard,
     { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() },
+    provideHttpClient(withFetch()),
   ],
   bootstrap: [App],
 })
