@@ -64,6 +64,32 @@ export class Conceptos implements OnInit {
         });
     }
 
+    editarConcepto(concepto: any): void {
+        Swal.fire({
+            title: 'Editar Concepto',
+            input: 'text',
+            inputLabel: 'Nombre del concepto',
+            inputValue: concepto.nombre,
+            showCancelButton: true,
+            confirmButtonText: 'Guardar',
+            cancelButtonText: 'Cancelar',
+            inputValidator: (value) => {
+                if (!value) return 'El nombre es obligatorio';
+                return null;
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.finanzasService.updateConcepto(concepto.id, { nombre: result.value }).subscribe({
+                    next: () => {
+                        Swal.fire('Actualizado', 'Concepto actualizado exitosamente', 'success');
+                        this.loadConceptos();
+                    },
+                    error: () => Swal.fire('Error', 'No se pudo actualizar el concepto', 'error')
+                });
+            }
+        });
+    }
+
     eliminarConcepto(id: number): void {
         Swal.fire({
             title: '¿Eliminar concepto?',
