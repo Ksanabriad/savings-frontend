@@ -7,7 +7,7 @@ import { Auth } from '../services/auth';
 import { Finanza } from '../models/usuarios.model';
 import Swal from 'sweetalert2';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -21,9 +21,15 @@ export class Finanzas implements OnInit {
     public dataSource!: MatTableDataSource<Finanza>;
     public displayedColumns = ['usuario', 'fecha', 'concepto', 'cantidad', 'tipo', 'medio', 'acciones'];
     public usuarios: any[] = [];
+    public conceptos: any[] = [];
+    public tipos: any[] = [];
+    public medios: any[] = [];
 
     filterForm = new FormGroup({
         usuario: new FormControl(''),
+        concepto: new FormControl(''),
+        tipo: new FormControl(''),
+        medio: new FormControl(''),
         fechaDesde: new FormControl<Date | null>(null),
         fechaHasta: new FormControl<Date | null>(null),
     });
@@ -34,11 +40,14 @@ export class Finanzas implements OnInit {
     constructor(
         private finanzasService: FinanzasService,
         public auth: Auth,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) { }
 
     ngOnInit(): void {
         this.loadFinanzas();
+        this.loadFilterOptions();
+
         if (this.auth.isAdmin()) {
             this.finanzasService.getUsuarios().subscribe(data => this.usuarios = data);
         }
@@ -56,6 +65,12 @@ export class Finanzas implements OnInit {
         });
     }
 
+    loadFilterOptions() {
+        this.finanzasService.getConceptos().subscribe(data => this.conceptos = data);
+        this.finanzasService.getTipos().subscribe(data => this.tipos = data);
+        this.finanzasService.getMedios().subscribe(data => this.medios = data);
+    }
+
     applyFilter() {
         if (!this.dataSource) return;
 
@@ -67,6 +82,15 @@ export class Finanzas implements OnInit {
             // Filtro por usuario (username)
             const matchUsuario = !filter.usuario || data.usuario?.username === filter.usuario;
 
+            // Filtro por concepto
+            const matchConcepto = !filter.concepto || data.concepto?.nombre === filter.concepto;
+
+            // Filtro por tipo
+            const matchTipo = !filter.tipo || data.tipo?.nombre === filter.tipo;
+
+            // Filtro por medio
+            const matchMedio = !filter.medio || data.medio?.nombre === filter.medio;
+
             // Filtro por fecha
             const fechaData = new Date(data.fecha);
             fechaData.setHours(0, 0, 0, 0);
@@ -74,7 +98,7 @@ export class Finanzas implements OnInit {
             const matchDesde = !filter.fechaDesde || fechaData >= new Date(filter.fechaDesde);
             const matchHasta = !filter.fechaHasta || fechaData <= new Date(filter.fechaHasta);
 
-            return matchUsuario && matchDesde && matchHasta;
+            return matchUsuario && matchConcepto && matchTipo && matchMedio && matchDesde && matchHasta;
         };
 
         this.dataSource.filter = JSON.stringify(filters);
@@ -99,6 +123,9 @@ export class Finanzas implements OnInit {
                 this.dataSource.sortingDataAccessor = (item, property) => {
                     switch (property) {
                         case 'usuario': return item.usuario?.username;
+                        case 'concepto': return item.concepto?.nombre;
+                        case 'tipo': return item.tipo?.nombre;
+                        case 'medio': return item.medio?.nombre;
                         default: return (item as any)[property];
                     }
                 };
@@ -114,6 +141,9 @@ export class Finanzas implements OnInit {
     limpiarFiltros() {
         this.filterForm.reset({
             usuario: '',
+            concepto: '',
+            tipo: '',
+            medio: '',
             fechaDesde: null,
             fechaHasta: null
         });
@@ -124,10 +154,10 @@ export class Finanzas implements OnInit {
         const dataToExport = this.dataSource.filteredData.map(item => ({
             Usuario: item.usuario?.username || 'N/A',
             Fecha: item.fecha,
-            Concepto: item.concepto,
+            Concepto: item.concepto?.nombre || 'N/A',
             Cantidad: item.cantidad,
-            Tipo: item.tipo,
-            Medio: item.medio
+            Tipo: item.tipo?.nombre || '',
+            Medio: item.medio?.nombre || ''
         }));
 
         const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(dataToExport);
@@ -137,8 +167,10 @@ export class Finanzas implements OnInit {
         /* save to file */
         const timestamp = new Date().toISOString().split('T')[1].split('.')[0].replace(/:/g, '');
         const date = new Date().toISOString().split('T')[0];
-        XLSX.writeFile(wb, `EasySave_${date}_${timestamp}.xlsx`);
+        const fileName = `EasySave_${date}_${timestamp}.xlsx`;
+        XLSX.writeFile(wb, fileName);
     }
+
 
     agregarConcepto() {
         Swal.fire({
@@ -168,6 +200,10 @@ export class Finanzas implements OnInit {
                 });
             }
         });
+    }
+
+    editarFinanza(id: number): void {
+        this.router.navigate(['/admin/editar-finanza', id]);
     }
 
     downloadFile(id: number): void {

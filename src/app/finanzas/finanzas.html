@@ -28,6 +28,36 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
+                    <mat-label>Concepto</mat-label>
+                    <mat-select formControlName="concepto">
+                        <mat-option value="">Todos los conceptos</mat-option>
+                        <mat-option *ngFor="let c of conceptos" [value]="c.nombre">
+                            {{ c.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select formControlName="tipo">
+                        <mat-option value="">Todos los tipos</mat-option>
+                        <mat-option *ngFor="let t of tipos" [value]="t.nombre">
+                            {{ t.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Medio</mat-label>
+                    <mat-select formControlName="medio">
+                        <mat-option value="">Todos los medios</mat-option>
+                        <mat-option *ngFor="let m of medios" [value]="m.nombre">
+                            {{ m.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
                     <mat-label>Rango de fechas</mat-label>
                     <mat-date-range-input [rangePicker]="picker">
                         <input matStartDate formControlName="fechaDesde" placeholder="Desde" />
@@ -38,7 +68,7 @@
                 </mat-form-field>
 
                 <div class="filter-actions">
-                    <button mat-stroked-button color="primary" (click)="limpiarFiltros()">
+                    <button mat-stroked-button color="primary" (click)="limpiarFiltros()" title="Limpiar Filtros">
                         <mat-icon>filter_list_off</mat-icon> Limpiar
                     </button>
                     <button mat-raised-button color="accent" (click)="exportToExcel()">
@@ -61,7 +91,7 @@
 
                 <ng-container matColumnDef="concepto">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Concepto</th>
-                    <td mat-cell *matCellDef="let element">{{ element.concepto }}</td>
+                    <td mat-cell *matCellDef="let element">{{ element.concepto?.nombre }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="cantidad">
@@ -72,24 +102,29 @@
                 <ng-container matColumnDef="tipo">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
                     <td mat-cell *matCellDef="let element">
-                        <span [class.ingreso]="element.tipo === 'INGRESO'" [class.egreso]="element.tipo === 'EGRESO'">
-                            {{ element.tipo }}
+                        <span [class.ingreso]="element.tipo?.nombre === 'INGRESO'"
+                            [class.egreso]="element.tipo?.nombre === 'EGRESO'">
+                            {{ element.tipo?.nombre }}
                         </span>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="medio">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Medio</th>
-                    <td mat-cell *matCellDef="let element">{{ element.medio }}</td>
+                    <td mat-cell *matCellDef="let element">{{ element.medio?.nombre }}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="acciones">
                     <th mat-header-cell *matHeaderCellDef>Acciones</th>
                     <td mat-cell *matCellDef="let element">
-                        <button mat-icon-button color="primary" *ngIf="element.file" (click)="downloadFile(element.id)">
+                        <button mat-icon-button color="accent" (click)="editarFinanza(element.id)" matTooltip="Editar">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" *ngIf="element.file" (click)="downloadFile(element.id)"
+                            matTooltip="Descargar archivo">
                             <mat-icon>download</mat-icon>
                         </button>
-                        <button mat-icon-button color="warn" (click)="eliminarFinanza(element)">
+                        <button mat-icon-button color="warn" (click)="eliminarFinanza(element)" matTooltip="Eliminar">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>
