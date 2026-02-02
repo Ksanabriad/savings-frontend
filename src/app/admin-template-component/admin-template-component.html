@@ -5,7 +5,7 @@
   <span style="flex: auto"></span>
   <!-- Mostrar el nombre del usuario autenticado -->
   <button mat-button *ngIf="auth.isAuthenticated()">
-    {{ auth.getUsername() }}
+    {{ auth.getUsername() | titlecase }}
   </button>
   <button mat-raised-button color="accent" (click)="logout()">Salir</button>
 </mat-toolbar>
@@ -31,10 +31,17 @@
           Conceptos
         </button>
       </mat-list-item>
+
       <mat-list-item>
-        <button mat-button routerLink="estudiantes">
-          <mat-icon>dashboard</mat-icon>
-          Estudiantes
+        <button mat-button routerLink="usuarios">
+          <mat-icon>people</mat-icon>
+          Usuarios
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button routerLink="historial-informes">
+          <mat-icon>history</mat-icon>
+          Historial
         </button>
       </mat-list-item>
     </mat-list>
