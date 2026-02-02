@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,4 +7,12 @@ import { Component } from '@angular/core';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard {}
+export class Dashboard {
+  currentBalance: number = 2450.75;
+
+  constructor(private router: Router) { }
+
+  goToFinanzas() {
+    this.router.navigate(['/admin/finanzas']);
+  }
+}

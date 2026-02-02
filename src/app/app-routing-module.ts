@@ -1,46 +1,40 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Home } from './home/home';
+
 import { Login } from './login/login';
-import { LoadEstudiantes } from './load-estudiantes/load-estudiantes';
-import { LoadPagos } from './load-pagos/load-pagos';
 import { Dashboard } from './dashboard/dashboard';
-import { Estudiantes } from './estudiantes/estudiantes';
-import { Pagos } from './pagos/pagos';
-import { Profile } from './profile/profile';
+import { Usuarios } from './usuarios/usuarios';
+import { Finanzas } from './finanzas/finanzas';
 import { AdminTemplateComponent } from './admin-template-component/admin-template-component';
 import { AuthGuard } from './guards/auth-guard';
 import { AuthorizationGuard } from './guards/authorization.guards';
-import { EstudianteDetails } from './estudiante-details/estudiante-details';
-import { NewPago } from './new-pago/new-pago';
+import { NewFinanza } from './new-finanza/new-finanza';
+import { Conceptos } from './conceptos/conceptos';
+import { Landing } from './landing/landing';
+import { Register } from './register/register';
+import { NewUsuario } from './new-usuario/new-usuario';
+import { HistorialInformes } from './historial-informes/historial-informes';
 
 const routes: Routes = [
-  { path: '', component: Login }, // ← RAÍZ → /login
+  { path: '', component: Landing }, // ← RAÍZ → /landing
   { path: 'login', component: Login }, // ← LOGIN
+  { path: 'register', component: Register },
   {
     path: 'admin',
     component: AdminTemplateComponent, // ← Layout principal
     canActivate: [AuthGuard],
     children: [
-      { path: 'home', component: Home },
-      { path: 'profile', component: Profile },
-      {
-        path: 'loadEstudiantes',
-        component: LoadEstudiantes,
-        canActivate: [AuthorizationGuard],
-        data: { roles: ['ADMIN'] },
-      },
-      {
-        path: 'loadPagos',
-        component: LoadPagos,
-        canActivate: [AuthorizationGuard],
-        data: { roles: ['ADMIN'] },
-      },
+
+
       { path: 'dashboard', component: Dashboard },
-      { path: 'estudiantes', component: Estudiantes },
-      { path: 'pagos', component: Pagos },
-      { path: 'estudiante-detalles/:codigo', component: EstudianteDetails },
-      { path: 'new-pago/:codigoEstudiante', component: NewPago },
+      { path: 'usuarios', component: Usuarios },
+      { path: 'finanzas', component: Finanzas },
+      { path: 'conceptos', component: Conceptos },
+      { path: 'nueva-finanza', component: NewFinanza },
+      { path: 'editar-finanza/:id', component: NewFinanza },
+      { path: 'new-usuario', component: NewUsuario },
+      { path: 'editar-usuario/:id', component: NewUsuario },
+      { path: 'historial-informes', component: HistorialInformes },
     ],
   },
 ];
@@ -49,4 +43,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

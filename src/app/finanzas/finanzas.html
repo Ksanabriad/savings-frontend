@@ -1,0 +1,135 @@
+<div class="container">
+    <mat-card>
+        <mat-card-header>
+            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                <mat-card-title> Finanzas </mat-card-title>
+                <div>
+                    <button mat-stroked-button color="accent" (click)="agregarConcepto()" style="margin-right: 10px;">
+                        <mat-icon>label</mat-icon> + Concepto
+                    </button>
+                    <button mat-raised-button color="primary" routerLink="/admin/nueva-finanza">
+                        <mat-icon>add</mat-icon> Nuevo Registro
+                    </button>
+                </div>
+            </div>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+            <!-- Barra de Filtros -->
+            <div [formGroup]="filterForm" class="filter-bar">
+                <mat-form-field appearance="outline" *ngIf="auth.isAdmin()">
+                    <mat-label>Filtrar por Usuario</mat-label>
+                    <input matInput formControlName="usuario" placeholder="Buscar por usuario..." />
+                    <mat-icon matPrefix>search</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Concepto</mat-label>
+                    <mat-select formControlName="concepto">
+                        <mat-option value="">Todos los conceptos</mat-option>
+                        <mat-option *ngFor="let c of conceptos" [value]="c.nombre">
+                            {{ c.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select formControlName="tipo">
+                        <mat-option value="">Todos los tipos</mat-option>
+                        <mat-option *ngFor="let t of tipos" [value]="t.nombre">
+                            {{ t.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Medio</mat-label>
+                    <mat-select formControlName="medio">
+                        <mat-option value="">Todos los medios</mat-option>
+                        <mat-option *ngFor="let m of medios" [value]="m.nombre">
+                            {{ m.nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Rango de fechas</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                        <input matStartDate formControlName="fechaDesde" placeholder="Desde" />
+                        <input matEndDate formControlName="fechaHasta" placeholder="Hasta" />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+
+                <div class="filter-actions">
+                    <button mat-stroked-button color="primary" (click)="limpiarFiltros()" title="Limpiar Filtros">
+                        <mat-icon>filter_list_off</mat-icon> Limpiar
+                    </button>
+                    <button mat-raised-button color="accent" (click)="exportToExcel()">
+                        <mat-icon>description</mat-icon> Exportar Excel
+                    </button>
+                </div>
+            </div>
+
+            <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z1">
+
+                <ng-container matColumnDef="usuario">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+                    <td mat-cell *matCellDef="let element">{{ element.usuario?.username }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+                    <td mat-cell *matCellDef="let element">{{ element.fecha }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="concepto">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Concepto</th>
+                    <td mat-cell *matCellDef="let element">{{ element.concepto?.nombre }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="cantidad">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+                    <td mat-cell *matCellDef="let element">{{ element.cantidad | currency:'EUR' }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="tipo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+                    <td mat-cell *matCellDef="let element">
+                        <span [class.ingreso]="element.tipo?.nombre === 'INGRESO'"
+                            [class.egreso]="element.tipo?.nombre === 'EGRESO'">
+                            {{ element.tipo?.nombre }}
+                        </span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="medio">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Medio</th>
+                    <td mat-cell *matCellDef="let element">{{ element.medio?.nombre }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="accent" (click)="editarFinanza(element.id)" matTooltip="Editar">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" *ngIf="element.file" (click)="downloadFile(element.id)"
+                            matTooltip="Descargar archivo">
+                            <mat-icon>download</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" (click)="eliminarFinanza(element)" matTooltip="Eliminar">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons=""></mat-paginator>
+        </mat-card-content>
+    </mat-card>
+</div>

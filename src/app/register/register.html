@@ -1,0 +1,79 @@
+<div class="login-wrapper">
+    <div class="login-card">
+        <header class="login-header">
+            <div class="logo">Easy<span>Save</span> 💰</div>
+            <h1>Crear Cuenta</h1>
+            <p class="subtitle">Únete a nosotros para gestionar tus finanzas.</p>
+
+            <div *ngIf="errorMessage" class="alert-error">
+                {{ errorMessage }}
+            </div>
+        </header>
+
+        <form [formGroup]="registerForm" class="auth-form" (ngSubmit)="save()" novalidate>
+            <!-- EMAIL -->
+            <div class="form-group">
+                <label>Correo electrónico</label>
+                <div class="input-container">
+                    <input type="email" formControlName="email" />
+                </div>
+                <div *ngIf="submitted && registerForm.get('email')?.hasError('required')" class="error-message">
+                    El correo es obligatorio.
+                </div>
+                <div *ngIf="submitted && registerForm.get('email')?.hasError('email')" class="error-message">
+                    Correo inválido.
+                </div>
+                <div *ngIf="registerForm.get('email')?.hasError('backendError')" class="error-message">
+                    {{ registerForm.get('email')?.errors?.['backendError'] }}
+                </div>
+            </div>
+
+            <!-- USERNAME -->
+            <div class="form-group">
+                <label>Nombre de usuario</label>
+                <div class="input-container">
+                    <input type="text" formControlName="username" />
+                </div>
+                <div *ngIf="submitted && registerForm.get('username')?.hasError('required')" class="error-message">
+                    El nombre de usuario es obligatorio.
+                </div>
+                <div *ngIf="registerForm.get('username')?.hasError('backendError')" class="error-message">
+                    {{ registerForm.get('username')?.errors?.['backendError'] }}
+                </div>
+            </div>
+
+            <!-- PASSWORD -->
+            <div class="form-group">
+                <label>Contraseña</label>
+                <div class="input-container">
+                    <input type="password" formControlName="password" />
+                </div>
+                <div *ngIf="submitted && registerForm.get('password')?.hasError('required')" class="error-message">
+                    La contraseña es obligatoria.
+                </div>
+            </div>
+
+            <!-- CONFIRM PASSWORD -->
+            <div class="form-group">
+                <label>Repetir Contraseña</label>
+                <div class="input-container">
+                    <input type="password" formControlName="confirmPassword" />
+                </div>
+                <div *ngIf="submitted && registerForm.get('confirmPassword')?.hasError('required')"
+                    class="error-message">
+                    Debes repetir la contraseña.
+                </div>
+                <div *ngIf="submitted && registerForm.hasError('mismatch')" class="error-message">
+                    Las contraseñas no coinciden.
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn-secondary" (click)="goBack()">
+                    Atrás
+                </button>
+                <button type="submit" class="btn-login-gradient">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,9 +1,115 @@
-<div class="container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title> Dashboard </mat-card-title>
-    </mat-card-header>
-    <mat-divider></mat-divider>
-    <mat-card-content> Dashboard </mat-card-content>
-  </mat-card>
+<div class="dashboard-container">
+  <!-- Cabecera Principal -->
+  <header class="main-header">
+    <div class="balance-info">
+      <span class="text-muted">DINERO ACTUAL 💰</span>
+      <div class="balance-row">
+        <h1 class="main-amount">{{ currentBalance | currency:'EUR':'symbol':'1.2-2' }}</h1>
+        <span class="trend-badge">📈 +2,4%</span>
+      </div>
+      <p class="growth-text">Tu patrimonio creció <strong>124,00€</strong> esta semana. 🚀</p>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn-primary-gradient" (click)="goToFinanzas()">
+        <span class="icon">+</span> Nueva Transacción
+      </button>
+    </div>
+  </header>
+
+  <div class="dashboard-content">
+    <!-- Gráfica de Gastos con Datos Ficticios -->
+    <section class="card chart-card">
+      <div class="card-header">
+        <div>
+          <h3>Gastos últimos 3 meses</h3>
+          <p class="subtitle">Análisis comparativo de tu consumo</p>
+        </div>
+      </div>
+
+      <div class="chart-visual">
+        <div class="bars-container">
+          <div class="bar-group">
+            <div class="bar bar-oct"></div>
+            <span class="bar-label">OCT</span>
+          </div>
+          <div class="bar-group">
+            <div class="bar bar-nov"></div>
+            <span class="bar-label">NOV</span>
+          </div>
+          <div class="bar-group">
+            <div class="bar bar-dic active"></div>
+            <span class="bar-label active">DIC</span>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat">
+            <label>GASTO MEDIO</label>
+            <span class="value">980,00€</span>
+          </div>
+          <div class="stat">
+            <label>TASA DE AHORRO</label>
+            <span class="value green">22%</span>
+          </div>
+          <div class="stat">
+            <label>EFICIENCIA</label>
+            <span class="value purple">Alta</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tarjeta de Predicciones Dark Mode -->
+    <section class="card prediction-card-dark">
+      <div class="header-prediction">
+        <div class="icon-sparkle">✨</div>
+      </div>
+
+      <h2>Predicciones de ahorro</h2>
+      <p>Según tus hábitos actuales, estimamos que alcanzarás tu <strong>Meta de 10.000€</strong> en Agosto de 2024.</p>
+
+      <div class="estimate-box">
+        <label>CRECIMIENTO ESTIMADO</label>
+        <div class="estimate-value"><span>+</span>400,00€<span>/mes</span></div>
+      </div>
+    </section>
+
+    <!-- Registro de Movimientos -->
+    <section class="card history-card">
+      <div class="card-header">
+        <div>
+          <h3>Registro de Movimientos</h3>
+          <p class="subtitle">Tus transacciones más recientes</p>
+        </div>
+      </div>
+
+      <div class="transaction-list">
+        <div class="transaction-item">
+          <div class="icon-circle cart">🛒</div>
+          <div class="details">
+            <span class="name">Supermercado Central</span>
+            <span class="cat">Alimentos • Hoy, 14:30</span>
+          </div>
+          <div class="amount-item negative">-45,20€</div>
+        </div>
+        <div class="transaction-item">
+          <div class="icon-circle money">💵</div>
+          <div class="details">
+            <span class="name">Nómina Mensual</span>
+            <span class="cat">Ingresos • Ayer, 09:00</span>
+          </div>
+          <div class="amount-item positive">+2.100,00€</div>
+        </div>
+        <div class="transaction-item">
+          <div class="icon-circle bus">🚌</div>
+          <div class="details">
+            <span class="name">Abono Transporte</span>
+            <span class="cat">Transporte • 12 Dic</span>
+          </div>
+          <div class="amount-item negative">-54,00€</div>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>
