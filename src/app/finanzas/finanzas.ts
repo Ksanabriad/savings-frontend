@@ -80,7 +80,7 @@ export class Finanzas implements OnInit {
             const filter = JSON.parse(filterStr);
 
             // Filtro por usuario (username)
-            const matchUsuario = !filter.usuario || data.usuario?.username === filter.usuario;
+            const matchUsuario = !filter.usuario || (data.usuario?.username && data.usuario.username.toLowerCase().includes(filter.usuario.toLowerCase()));
 
             // Filtro por concepto
             const matchConcepto = !filter.concepto || data.concepto?.nombre === filter.concepto;

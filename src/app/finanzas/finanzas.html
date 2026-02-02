@@ -19,12 +19,8 @@
             <div [formGroup]="filterForm" class="filter-bar">
                 <mat-form-field appearance="outline" *ngIf="auth.isAdmin()">
                     <mat-label>Filtrar por Usuario</mat-label>
-                    <mat-select formControlName="usuario">
-                        <mat-option value="">Todos los usuarios</mat-option>
-                        <mat-option *ngFor="let u of usuarios" [value]="u.username">
-                            {{ u.username }}
-                        </mat-option>
-                    </mat-select>
+                    <input matInput formControlName="usuario" placeholder="Buscar por usuario..." />
+                    <mat-icon matPrefix>search</mat-icon>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
