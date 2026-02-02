@@ -1,7 +1,7 @@
 <div class="container">
     <mat-card [formGroup]="finanzaFormGroup" class="finanza-form">
         <mat-card-header>
-            <mat-card-title>Nuevo Registro Financiero</mat-card-title>
+            <mat-card-title>{{ isEditMode ? 'Editar' : 'Nuevo' }} Registro Financiero</mat-card-title>
         </mat-card-header>
         <mat-divider></mat-divider>
         <mat-card-content>
@@ -52,7 +52,7 @@
         <mat-card-actions align="end">
             <button mat-button routerLink="/admin/finanzas">Volver</button>
             <button (click)="guardarFinanza()" mat-raised-button color="primary" [disabled]="finanzaFormGroup.invalid">
-                Guardar Registro
+                {{ isEditMode ? 'Actualizar' : 'Guardar' }} Registro
             </button>
         </mat-card-actions>
     </mat-card>

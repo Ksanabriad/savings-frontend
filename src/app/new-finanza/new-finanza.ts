@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TipoFinanza, MedioPago } from '../models/usuarios.model';
 import { FinanzasService } from '../services/finanzas.service';
 import { Auth } from '../services/auth';
@@ -14,6 +14,8 @@ import Swal from 'sweetalert2';
 })
 export class NewFinanza implements OnInit {
     finanzaFormGroup!: FormGroup;
+    isEditMode: boolean = false;
+    finanzaId!: number;
     tiposFinanza: any[] = [];
     mediosPago: any[] = [];
     conceptos: any[] = [];
@@ -23,16 +25,26 @@ export class NewFinanza implements OnInit {
         private fb: FormBuilder,
         private finanzasService: FinanzasService,
         private auth: Auth,
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute
     ) { }
 
     ngOnInit(): void {
+        this.loadInitialData();
+        this.initForm();
+        this.checkEditMode();
+    }
+
+    private loadInitialData() {
         this.finanzasService.getConceptos().subscribe({
             next: (data) => this.conceptos = data,
             error: (err) => console.error(err)
         });
         this.finanzasService.getTipos().subscribe(data => this.tiposFinanza = data);
         this.finanzasService.getMedios().subscribe(data => this.mediosPago = data);
+    }
+
+    private initForm() {
         this.finanzaFormGroup = this.fb.group({
             fecha: [new Date(), Validators.required],
             concepto: ['', Validators.required],
@@ -43,6 +55,36 @@ export class NewFinanza implements OnInit {
             fileName: [''],
         });
     }
+
+    private checkEditMode() {
+        const id = this.route.snapshot.paramMap.get('id');
+        if (id) {
+            this.isEditMode = true;
+            this.finanzaId = +id;
+            this.loadFinanzaData(this.finanzaId);
+        }
+    }
+
+    private loadFinanzaData(id: number) {
+        this.finanzasService.getFinanza(id).subscribe({
+            next: (finanza) => {
+                // Mapear los datos al formulario
+                this.finanzaFormGroup.patchValue({
+                    fecha: new Date(finanza.fecha),
+                    concepto: finanza.concepto?.nombre || '',
+                    cantidad: finanza.cantidad,
+                    tipo: finanza.tipo?.nombre || '',
+                    medio: finanza.medio?.nombre || '',
+                    fileName: finanza.file ? 'Archivo guardado' : ''
+                });
+            },
+            error: (err) => {
+                console.error('Error cargando finanza:', err);
+                Swal.fire('Error', 'No se pudo cargar el registro para editar', 'error');
+            }
+        });
+    }
+
 
     selectFile(event: any) {
         if (event.target.files.length > 0) {
@@ -75,11 +117,20 @@ export class NewFinanza implements OnInit {
             formData.set('file', this.finanzaFormGroup.value.fileSource);
         }
 
-        this.finanzasService.guardarFinanza(formData).subscribe({
+        const request = this.isEditMode
+            ? this.finanzasService.actualizarFinanza(this.finanzaId, formData)
+            : this.finanzasService.guardarFinanza(formData);
+
+        const successMessage = this.isEditMode ? 'Finanza Actualizada' : 'Finanza Guardada';
+        const successText = this.isEditMode
+            ? 'El registro financiero ha sido actualizado exitosamente'
+            : 'El registro financiero ha sido guardado exitosamente';
+
+        request.subscribe({
             next: () => {
                 Swal.fire({
-                    title: 'Finanza Guardada',
-                    text: 'El registro financiero ha sido guardado exitosamente',
+                    title: successMessage,
+                    text: successText,
                     icon: 'success',
                 }).then(() => {
                     this.router.navigateByUrl('/admin/finanzas');
@@ -90,7 +141,7 @@ export class NewFinanza implements OnInit {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'Ha ocurrido un error al guardar el registro',
+                    text: `Ha ocurrido un error al ${this.isEditMode ? 'actualizar' : 'guardar'} el registro`,
                 });
             },
         });
