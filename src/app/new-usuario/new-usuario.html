@@ -1,7 +1,7 @@
 <div class="container">
     <mat-card class="form-card">
         <mat-card-header>
-            <mat-card-title>Nuevo Usuario</mat-card-title>
+            <mat-card-title>{{ isEditMode ? 'Editar' : 'Nuevo' }} Usuario</mat-card-title>
         </mat-card-header>
         <mat-divider></mat-divider>
         <mat-card-content>
@@ -28,17 +28,19 @@
                         obligatoria</mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline">
-                    <mat-label>Rol</mat-label>
-                    <mat-select formControlName="rol">
-                        <mat-option value="USER">USER</mat-option>
-                        <mat-option value="ADMIN">ADMIN</mat-option>
-                    </mat-select>
-                </mat-form-field>
+                <div formGroupName="perfil">
+                    <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Rol</mat-label>
+                        <mat-select formControlName="nombre">
+                            <mat-option value="USER">USER</mat-option>
+                            <mat-option value="ADMIN">ADMIN</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
 
                 <div class="actions">
                     <button mat-raised-button color="primary" type="submit" [disabled]="usuarioForm.invalid">
-                        Guardar Usuario
+                        {{ isEditMode ? 'Actualizar' : 'Guardar' }} Usuario
                     </button>
                     <button mat-button color="warn" type="button" (click)="cancelar()">
                         Cancelar
