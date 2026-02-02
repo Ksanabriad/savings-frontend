@@ -1,0 +1,86 @@
+<div class="container">
+    <mat-card>
+        <mat-card-header>
+            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                <mat-card-title>
+                    {{ authService.isAdmin() ? 'Todos los Informes' : 'Mis Extractos Mensuales' }}
+                </mat-card-title>
+                <button mat-button routerLink="/admin/finanzas">
+                    <mat-icon>arrow_back</mat-icon> Volver a Finanzas
+                </button>
+            </div>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+
+            <!-- Generation Section -->
+            <div class="generar-seccion"
+                style="margin: 20px 0; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
+                <h3>Generar Nuevo Extracto:</h3>
+
+                <mat-form-field appearance="outline" *ngIf="authService.isAdmin()">
+                    <mat-label>Usuario</mat-label>
+                    <input matInput [(ngModel)]="targetUser">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Mes</mat-label>
+                    <mat-select [(ngModel)]="selectedMes">
+                        <mat-option *ngFor="let m of meses" [value]="m.value">{{ m.name }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Año</mat-label>
+                    <mat-select [(ngModel)]="selectedAnio">
+                        <mat-option *ngFor="let a of anios" [value]="a">{{ a }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <button mat-raised-button color="accent" (click)="generarExtracto()">
+                    <mat-icon>picture_as_pdf</mat-icon> Generar PDF
+                </button>
+            </div>
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1">
+
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="usuario">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.usuario?.username || 'N/A' }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fechaGeneracion">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Generación </th>
+                    <td mat-cell *matCellDef="let element"> {{ element.fechaGeneracion | date:'dd/MM/yyyy' }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="nombreArchivo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre del Archivo </th>
+                    <td mat-cell *matCellDef="let element"> {{ getDisplayFilename(element.nombreArchivo,
+                        element.usuario?.username) }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="acciones">
+                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button color="primary"
+                            (click)="descargarInforme(element.id, getDisplayFilename(element.nombreArchivo, element.usuario?.username))"
+                            matTooltip="Descargar">
+                            <mat-icon>download</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </mat-card-content>
+    </mat-card>
+</div>
