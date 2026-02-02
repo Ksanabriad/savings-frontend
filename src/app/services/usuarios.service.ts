@@ -23,4 +23,12 @@ export class UsuariosService {
     return this.http.get<Array<Usuario>>(`${environment.backendHost}/api/usuarios`);
   }
 
+  public getUsuario(id: string): Observable<Usuario> {
+    return this.http.get<Usuario>(`${environment.backendHost}/api/usuarios/${id}`);
+  }
+
+  public updateUsuario(id: string, user: any): Observable<Usuario> {
+    return this.http.put<Usuario>(`${environment.backendHost}/api/usuarios/${id}`, user);
+  }
+
 }
