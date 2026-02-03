@@ -45,6 +45,10 @@ export class Finanzas implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        if (!this.auth.isAdmin()) {
+            this.displayedColumns = this.displayedColumns.filter(c => c !== 'usuario');
+        }
+
         this.loadFinanzas();
         this.loadFilterOptions();
 

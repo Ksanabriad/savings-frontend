@@ -45,7 +45,6 @@ import { HistorialInformes } from './historial-informes/historial-informes';
     Login,
     Finanzas,
     Usuarios,
-    Dashboard,
     NewFinanza,
     Conceptos,
     Landing,
@@ -56,6 +55,7 @@ import { HistorialInformes } from './historial-informes/historial-informes';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    Dashboard,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,

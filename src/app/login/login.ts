@@ -35,7 +35,12 @@ export class Login implements OnInit {
       let password = this.loginForm.value.password;
       this.auth.login(username, password).subscribe(success => {
         if (success) {
-          this.router.navigateByUrl('/admin/dashboard');
+          const role = this.auth.getRole();
+          if (role === 'ADMIN') {
+            this.router.navigateByUrl('/admin/finanzas');
+          } else {
+            this.router.navigateByUrl('/admin/dashboard');
+          }
         } else {
           Swal.fire({
             title: 'Error de acceso',

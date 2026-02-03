@@ -13,7 +13,7 @@
 <mat-drawer-container>
   <mat-drawer #myDrawer opened="true" mode="side" position="start">
     <mat-list>
-      <mat-list-item>
+      <mat-list-item *ngIf="!auth.isAdmin()">
         <button mat-button routerLink="dashboard">
           <mat-icon>dashboard</mat-icon>
           Dashboard
@@ -32,7 +32,7 @@
         </button>
       </mat-list-item>
 
-      <mat-list-item>
+      <mat-list-item *ngIf="auth.isAdmin()">
         <button mat-button routerLink="usuarios">
           <mat-icon>people</mat-icon>
           Usuarios
