@@ -80,7 +80,8 @@ export class NewUsuario implements OnInit {
                 },
                 error: (err) => {
                     console.error(err);
-                    Swal.fire('Error', err.error || 'No se pudo guardar el usuario', 'error');
+                    const msg = err.error?.message || err.error || 'No se pudo guardar el usuario';
+                    Swal.fire('Error', typeof msg === 'string' ? msg : JSON.stringify(msg), 'error');
                 }
             });
         }
