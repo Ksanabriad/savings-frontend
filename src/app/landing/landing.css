@@ -1,5 +1,5 @@
 :host {
-  --primary-color: #10b981; /* Verde esmeralda */
+  --primary-color: #10b981;
   --primary-hover: #059669;
   --text-main: #1f2937;
   --text-muted: #6b7280;
@@ -92,12 +92,3 @@ p {
   transform: translateY(-2px);
 }
 
-.btn-outline {
-  background: transparent;
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-  padding: 0.6rem 1.5rem;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
-}
