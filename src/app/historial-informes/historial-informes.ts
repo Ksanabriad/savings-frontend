@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class HistorialInformes implements OnInit {
     public dataSource!: MatTableDataSource<HistorialInforme>;
-    public displayedColumns = ['id', 'usuario', 'fechaGeneracion', 'nombreArchivo', 'acciones'];
+    public displayedColumns = ['usuario', 'fechaGeneracion', 'nombreArchivo', 'acciones'];
 
     public meses = [
         { value: 1, name: 'Enero' }, { value: 2, name: 'Febrero' }, { value: 3, name: 'Marzo' },
@@ -157,6 +157,32 @@ export class HistorialInformes implements OnInit {
         }
         return nombreArchivo;
     }
+
+    eliminarInforme(id: number, nombreArchivo: string): void {
+        Swal.fire({
+            title: '¿Eliminar informe?',
+            text: `Se eliminará el informe ${nombreArchivo}. Podrá regenerarlo después.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.finanzasService.eliminarInforme(id).subscribe({
+                    next: () => {
+                        Swal.fire('Eliminado', 'El informe ha sido eliminado correctamente', 'success');
+                        this.loadHistorial();
+                    },
+                    error: (err: any) => {
+                        console.error('Error eliminando informe:', err);
+                        Swal.fire('Error', 'No se pudo eliminar el informe', 'error');
+                    }
+                });
+            }
+        });
+    }
+
     goBack() {
         const username = this.authService.getUsername();
         if (username) {

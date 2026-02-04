@@ -43,11 +43,6 @@
             </div>
             <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z1">
 
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                    <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
-                </ng-container>
-
                 <ng-container matColumnDef="usuario">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
                     <td mat-cell *matCellDef="let element"> {{ element.usuario?.username || 'N/A' }} </td>
@@ -72,6 +67,11 @@
                             (click)="descargarInforme(element.id, getDisplayFilename(element.nombreArchivo, element.usuario?.username))"
                             matTooltip="Descargar">
                             <mat-icon>download</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn"
+                            (click)="eliminarInforme(element.id, getDisplayFilename(element.nombreArchivo, element.usuario?.username))"
+                            matTooltip="Eliminar">
+                            <mat-icon>delete</mat-icon>
                         </button>
                     </td>
                 </ng-container>

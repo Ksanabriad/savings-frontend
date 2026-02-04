@@ -75,6 +75,10 @@ export class FinanzasService {
         });
     }
 
+    public eliminarInforme(id: number): Observable<void> {
+        return this.http.delete<void>(`${environment.backendHost}/api/informes/${id}`);
+    }
+
     public getTipos(): Observable<Array<any>> {
         return this.http.get<Array<any>>(`${environment.backendHost}/api/finanzas/tipos`);
     }
