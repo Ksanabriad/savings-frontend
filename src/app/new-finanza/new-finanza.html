@@ -18,6 +18,9 @@
                     <mat-select formControlName="concepto">
                         <mat-option *ngFor="let c of conceptos" [value]="c.nombre"> {{ c.nombre }}</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="finanzaFormGroup.get('concepto')?.hasError('required')">
+                        Debe seleccionar un concepto
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">

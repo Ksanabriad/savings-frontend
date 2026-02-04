@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { UsuariosService } from '../services/usuarios.service';
 import Swal from 'sweetalert2';
 
@@ -24,9 +25,28 @@ export class NewUsuario implements OnInit {
 
     ngOnInit(): void {
         this.usuarioForm = this.fb.group({
-            username: ['', [Validators.required, Validators.minLength(3)]],
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(6)]],
+            username: ['', [
+                Validators.required,
+                RxwebValidators.minLength({ value: 4 }),
+                RxwebValidators.maxLength({ value: 20 }),
+                RxwebValidators.pattern({ expression: { 'alphaNumeric': /^[a-zA-Z0-9]+$/ } })
+            ]],
+            email: ['', [
+                Validators.required,
+                RxwebValidators.email()
+            ]],
+            password: ['', [
+                Validators.required,
+                RxwebValidators.password({
+                    validation: {
+                        minLength: 6,
+                        maxLength: 12,
+                        digit: true,
+                        lowerCase: true,
+                        upperCase: true
+                    }
+                })
+            ]],
             perfil: this.fb.group({
                 nombre: ['USER', Validators.required]
             })

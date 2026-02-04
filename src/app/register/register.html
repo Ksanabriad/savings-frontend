@@ -21,7 +21,7 @@
                     El correo es obligatorio.
                 </div>
                 <div *ngIf="submitted && registerForm.get('email')?.hasError('email')" class="error-message">
-                    Correo inválido.
+                    Formato inválido. Debe ser: texto@dominio.com
                 </div>
                 <div *ngIf="registerForm.get('email')?.hasError('backendError')" class="error-message">
                     {{ registerForm.get('email')?.errors?.['backendError'] }}
@@ -37,6 +37,15 @@
                 <div *ngIf="submitted && registerForm.get('username')?.hasError('required')" class="error-message">
                     El nombre de usuario es obligatorio.
                 </div>
+                <div *ngIf="submitted && registerForm.get('username')?.hasError('minLength')" class="error-message">
+                    Debe tener al menos 4 caracteres.
+                </div>
+                <div *ngIf="submitted && registerForm.get('username')?.hasError('maxLength')" class="error-message">
+                    No puede exceder 20 caracteres.
+                </div>
+                <div *ngIf="submitted && registerForm.get('username')?.hasError('pattern')" class="error-message">
+                    Solo se permiten caracteres alfanuméricos (letras y números).
+                </div>
                 <div *ngIf="registerForm.get('username')?.hasError('backendError')" class="error-message">
                     {{ registerForm.get('username')?.errors?.['backendError'] }}
                 </div>
@@ -51,6 +60,9 @@
                 <div *ngIf="submitted && registerForm.get('password')?.hasError('required')" class="error-message">
                     La contraseña es obligatoria.
                 </div>
+                <div *ngIf="submitted && registerForm.get('password')?.hasError('password')" class="error-message">
+                    La contraseña debe tener 6-12 caracteres, incluir al menos 1 mayúscula, 1 minúscula y 1 número.
+                </div>
             </div>
 
             <!-- CONFIRM PASSWORD -->
@@ -63,7 +75,8 @@
                     class="error-message">
                     Debes repetir la contraseña.
                 </div>
-                <div *ngIf="submitted && registerForm.hasError('mismatch')" class="error-message">
+                <div *ngIf="submitted && registerForm.get('confirmPassword')?.hasError('compare')"
+                    class="error-message">
                     Las contraseñas no coinciden.
                 </div>
             </div>
