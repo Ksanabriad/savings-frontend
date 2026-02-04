@@ -8,7 +8,7 @@
             <div class="form-grid">
                 <mat-form-field appearance="outline">
                     <mat-label>Fecha</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="fecha" />
+                    <input matInput [matDatepicker]="picker" formControlName="fecha" [max]="maxDate" />
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
@@ -50,7 +50,7 @@
             </div>
         </mat-card-content>
         <mat-card-actions align="end">
-            <button mat-button routerLink="/admin/finanzas">Volver</button>
+            <button mat-button (click)="goBack()">Volver</button>
             <button (click)="guardarFinanza()" mat-raised-button color="primary" [disabled]="finanzaFormGroup.invalid">
                 {{ isEditMode ? 'Actualizar' : 'Guardar' }} Registro
             </button>
