@@ -36,8 +36,9 @@ export class Usuarios implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (!this.auth.isAdmin()) {
-      this.router.navigate(['/admin/dashboard']);
+    const username = this.auth.getUsername();
+    if (!this.auth.isAdmin() && username) {
+      this.router.navigate([`/${username}/dashboard`]);
     }
     this.finanzasService.getUsuarios().subscribe({
       next: (data) => {

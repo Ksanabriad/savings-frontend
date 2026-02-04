@@ -37,9 +37,9 @@ export class Login implements OnInit {
         if (success) {
           const role = this.auth.getRole();
           if (role === 'ADMIN') {
-            this.router.navigateByUrl('/admin/finanzas');
+            this.router.navigateByUrl(`/${username}/finanzas`);
           } else {
-            this.router.navigateByUrl('/admin/dashboard');
+            this.router.navigateByUrl(`/${username}/dashboard`);
           }
         } else {
           Swal.fire({

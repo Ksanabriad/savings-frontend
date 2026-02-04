@@ -66,7 +66,7 @@ export class Dashboard implements OnInit {
     this.isAdmin = this.authService.getRole() === 'ADMIN';
 
     if (this.isAdmin) {
-      this.router.navigate(['/admin/finanzas']);
+      this.router.navigate([`/${this.username}/finanzas`]);
       return;
     }
 
@@ -189,10 +189,10 @@ export class Dashboard implements OnInit {
   }
 
   goToFinanzas() {
-    this.router.navigate(['/admin/finanzas']);
+    this.router.navigate([`/${this.username}/finanzas`]);
   }
 
   goToNewTransaction() {
-    this.router.navigate(['/admin/finanzas/new']);
+    this.router.navigate([`/${this.username}/nueva-finanza`]);
   }
 }

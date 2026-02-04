@@ -207,7 +207,10 @@ export class Finanzas implements OnInit {
     }
 
     editarFinanza(id: number): void {
-        this.router.navigate(['/admin/editar-finanza', id]);
+        const username = this.auth.getUsername();
+        if (username) {
+            this.router.navigate([`/${username}/editar-finanza`, id]);
+        }
     }
 
     downloadFile(id: number): void {
@@ -251,5 +254,14 @@ export class Finanzas implements OnInit {
                 });
             }
         });
+    }
+    goToNewFinanza() {
+        const username = this.auth.getUsername();
+        console.log('Navigating to new finanza. Username:', username);
+        if (username) {
+            this.router.navigate([`/${username}/nueva-finanza`]);
+        } else {
+            console.error('No username found for navigation');
+        }
     }
 }

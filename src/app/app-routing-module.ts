@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'login', component: Login }, // ← LOGIN
   { path: 'register', component: Register },
   {
-    path: 'admin',
+    path: ':username',
     component: AdminTemplateComponent, // ← Layout principal
     canActivate: [AuthGuard],
     children: [

@@ -76,7 +76,8 @@ export class NewUsuario implements OnInit {
             request.subscribe({
                 next: () => {
                     Swal.fire(successMessage, successText, 'success');
-                    this.router.navigate(['/admin/usuarios']);
+                    const username = this.usuarioForm.get('username')?.value;
+                    this.router.navigateByUrl(`/${username}/usuarios`);
                 },
                 error: (err) => {
                     console.error(err);

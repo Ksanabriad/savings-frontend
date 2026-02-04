@@ -6,6 +6,7 @@ import { FinanzasService } from '../services/finanzas.service';
 import { Auth } from '../services/auth';
 import { HistorialInforme } from '../models/usuarios.model';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-historial-informes',
@@ -41,7 +42,7 @@ export class HistorialInformes implements OnInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
 
-    constructor(private finanzasService: FinanzasService, public authService: Auth) { }
+    constructor(private finanzasService: FinanzasService, public authService: Auth, private router: Router) { }
 
     ngOnInit(): void {
         if (!this.authService.isAdmin()) {
@@ -155,5 +156,11 @@ export class HistorialInformes implements OnInit {
             return nombreArchivo.replace(username + '_', 'EasySave_');
         }
         return nombreArchivo;
+    }
+    goBack() {
+        const username = this.authService.getUsername();
+        if (username) {
+            this.router.navigate([`/${username}/finanzas`]);
+        }
     }
 }
