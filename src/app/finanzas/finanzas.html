@@ -2,12 +2,12 @@
     <mat-card>
         <mat-card-header>
             <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-                <mat-card-title> Finanzas </mat-card-title>
+                <mat-card-title class="page-title"> Finanzas </mat-card-title>
                 <div>
-                    <button mat-stroked-button color="accent" (click)="agregarConcepto()" style="margin-right: 10px;">
+                    <button class="btn-secondary" (click)="agregarConcepto()" style="margin-right: 5px;">
                         <mat-icon>label</mat-icon> + Concepto
                     </button>
-                    <button mat-raised-button color="primary" (click)="goToNewFinanza()">
+                    <button class="btn-primary" (click)="goToNewFinanza()">
                         <mat-icon>add</mat-icon> Nuevo Registro
                     </button>
                 </div>
@@ -17,13 +17,13 @@
         <mat-card-content>
             <!-- Barra de Filtros -->
             <div [formGroup]="filterForm" class="filter-bar">
-                <mat-form-field appearance="outline" *ngIf="auth.isAdmin()">
+                <mat-form-field appearance="outline" subscriptSizing="dynamic" *ngIf="auth.isAdmin()">
                     <mat-label>Filtrar por Usuario</mat-label>
                     <input matInput formControlName="usuario" placeholder="Buscar por usuario..." />
                     <mat-icon matPrefix>search</mat-icon>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
                     <mat-label>Concepto</mat-label>
                     <mat-select formControlName="concepto">
                         <mat-option value="">Todos los conceptos</mat-option>
@@ -33,7 +33,7 @@
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
                     <mat-label>Tipo</mat-label>
                     <mat-select formControlName="tipo">
                         <mat-option value="">Todos los tipos</mat-option>
@@ -43,7 +43,7 @@
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
                     <mat-label>Medio</mat-label>
                     <mat-select formControlName="medio">
                         <mat-option value="">Todos los medios</mat-option>
@@ -53,7 +53,7 @@
                     </mat-select>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" subscriptSizing="dynamic">
                     <mat-label>Rango de fechas</mat-label>
                     <mat-date-range-input [rangePicker]="picker">
                         <input matStartDate formControlName="fechaDesde" placeholder="Desde" />
@@ -67,7 +67,7 @@
                     <button mat-stroked-button color="primary" (click)="limpiarFiltros()" title="Limpiar Filtros">
                         <mat-icon>filter_list_off</mat-icon> Limpiar
                     </button>
-                    <button mat-raised-button color="accent" (click)="exportToExcel()">
+                    <button mat-raised-button class="btn-tertiary" (click)="exportToExcel()">
                         <mat-icon>description</mat-icon> Exportar Excel
                     </button>
                 </div>
