@@ -5,7 +5,7 @@
             <h1>Crear Cuenta</h1>
             <p class="subtitle">Únete a nosotros para gestionar tus finanzas.</p>
 
-            <div *ngIf="errorMessage" class="alert-error">
+            <div *ngIf="errorMessage" class="error-message">
                 {{ errorMessage }}
             </div>
         </header>
@@ -85,7 +85,7 @@
                 <button type="button" class="btn-secondary" (click)="goBack()">
                     Atrás
                 </button>
-                <button type="submit" class="btn-login-gradient">Guardar</button>
+                <button type="submit" class="btn-primary">Guardar</button>
             </div>
         </form>
     </div>
