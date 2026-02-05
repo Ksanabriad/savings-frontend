@@ -116,7 +116,7 @@
                         <button mat-icon-button (click)="editarFinanza(element.id)" matTooltip="Editar">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-icon-button class="btn-download" *ngIf="element.file"
+                        <button mat-icon-button *ngIf="element.file"
                             (click)="downloadFile(element.id)" matTooltip="Descargar archivo">
                             <mat-icon>download</mat-icon>
                         </button>
