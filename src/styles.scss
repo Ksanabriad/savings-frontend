@@ -143,8 +143,36 @@ table {
   overflow: hidden;
 }
 
-.mat-column-acciones {
+/* First Column Left Aligned (e.g. Concepto, Usuario) */
+th.mat-mdc-header-cell:first-of-type,
+td.mat-mdc-cell:first-of-type {
+  text-align: left;
+  padding-left: 24px;
+}
+
+th.mat-mdc-header-cell:first-of-type .mat-sort-header-container {
+  justify-content: flex-start;
+}
+
+/* Last Column Right Aligned (e.g. Acciones) */
+th.mat-mdc-header-cell:last-of-type,
+td.mat-mdc-cell:last-of-type {
   text-align: right;
+  padding-right: 24px;
+}
+
+th.mat-mdc-header-cell:last-of-type .mat-sort-header-container {
+  justify-content: flex-end;
+}
+
+/* Middle Columns Centered for dynamic separation */
+th.mat-mdc-header-cell:not(:first-of-type):not(:last-of-type),
+td.mat-mdc-cell:not(:first-of-type):not(:last-of-type) {
+  text-align: center;
+}
+
+th.mat-mdc-header-cell:not(:first-of-type):not(:last-of-type) .mat-sort-header-container {
+  justify-content: center;
 }
 
 /* ========================================

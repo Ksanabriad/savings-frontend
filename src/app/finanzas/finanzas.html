@@ -92,7 +92,8 @@
 
                 <ng-container matColumnDef="cantidad">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
-                    <td mat-cell *matCellDef="let element">{{ element.cantidad | currency:'EUR' }}</td>
+                    <td mat-cell *matCellDef="let element">{{ element.cantidad.toLocaleString('es-ES',
+                        {minimumFractionDigits: 2, maximumFractionDigits: 2}) }} €</td>
                 </ng-container>
 
                 <ng-container matColumnDef="tipo">
@@ -116,8 +117,8 @@
                         <button mat-icon-button (click)="editarFinanza(element.id)" matTooltip="Editar">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-icon-button *ngIf="element.file"
-                            (click)="downloadFile(element.id)" matTooltip="Descargar archivo">
+                        <button mat-icon-button *ngIf="element.file" (click)="downloadFile(element.id)"
+                            matTooltip="Descargar archivo">
                             <mat-icon>download</mat-icon>
                         </button>
                         <button mat-icon-button color="warn" (click)="eliminarFinanza(element)" matTooltip="Eliminar">
