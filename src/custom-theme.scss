@@ -6,22 +6,35 @@
 // PALETA PRIMARIA: Verde Menta
 // ============================================
 $mint-green-palette: (
-  50: #e7f9f3,   // Verde muy claro (fondos)
-  100: #c3f0e0,  // Verde pastel
-  200: #9be6cc,  // Verde claro
-  300: #73dcb7,  // Verde suave
-  400: #55d4a7,  // Verde medio-claro
-  500: #37cd98,  // Verde base
-  600: #31c890,  // Verde medio
-  700: #2ac185,  // Verde vibrante
-  800: #23ba7b,  // Verde intenso
-  900: #16ad6a,  // Verde oscuro
-  A100: #d4ffe9, // Verde accent muy claro
-  A200: #a1ffd0, // Verde accent claro
-  A400: #6effb7, // Verde accent medio
-  A700: #55ffab, // Verde accent intenso
-  contrast: (
-    50: rgba(black, 0.87),
+  50: #e7f9f3,
+  // Verde muy claro (fondos)
+  100: #c3f0e0,
+  // Verde pastel
+  200: #9be6cc,
+  // Verde claro
+  300: #73dcb7,
+  // Verde suave
+  400: #55d4a7,
+  // Verde medio-claro
+  500: #37cd98,
+  // Verde base
+  600: #31c890,
+  // Verde medio
+  700: #2ac185,
+  // Verde vibrante
+  800: #23ba7b,
+  // Verde intenso
+  900: #16ad6a,
+  // Verde oscuro
+  A100: #d4ffe9,
+  // Verde accent muy claro
+  A200: #a1ffd0,
+  // Verde accent claro
+  A400: #6effb7,
+  // Verde accent medio
+  A700: #55ffab,
+  // Verde accent intenso
+  contrast: (50: rgba(black, 0.87),
     100: rgba(black, 0.87),
     200: rgba(black, 0.87),
     300: rgba(black, 0.87),
@@ -39,25 +52,38 @@ $mint-green-palette: (
 );
 
 // ============================================
-// PALETA ACCENT: Cyan/Turquesa
+// PALETA ACCENT: Morado Vibrante
 // ============================================
-$cyan-palette: (
-  50: #e0f7fa,   // Cyan muy claro
-  100: #b2ebf2,  // Cyan pastel
-  200: #80deea,  // Cyan claro
-  300: #4dd0e1,  // Cyan suave
-  400: #26c6da,  // Cyan medio-claro
-  500: #00bcd4,  // Cyan base
-  600: #00b6cf,  // Cyan medio
-  700: #00acc1,  // Cyan vibrante
-  800: #0097a7,  // Cyan intenso
-  900: #006064,  // Cyan oscuro
-  A100: #84ffff, // Cyan accent muy claro
-  A200: #18ffff, // Cyan accent claro
-  A400: #00e5ff, // Cyan accent medio
-  A700: #00b8d4, // Cyan accent intenso
-  contrast: (
-    50: rgba(black, 0.87),
+$purple-palette: (
+  50: #faf5ff,
+  // Morado muy claro
+  100: #f3e8ff,
+  // Morado pastel
+  200: #e9d5ff,
+  // Morado claro
+  300: #d8b4fe,
+  // Morado suave
+  400: #c084fc,
+  // Morado medio-claro
+  500: #a855f7,
+  // Morado base
+  600: #9333ea,
+  // Morado medio
+  700: #7e22ce,
+  // Morado vibrante
+  800: #6b21a8,
+  // Morado intenso
+  900: #581c87,
+  // Morado oscuro
+  A100: #f0d9ff,
+  // Morado accent muy claro
+  A200: #d896ff,
+  // Morado accent claro
+  A400: #b958ff,
+  // Morado accent medio
+  A700: #8b5cf6,
+  // Morado accent intenso (base principal)
+  contrast: (50: rgba(black, 0.87),
     100: rgba(black, 0.87),
     200: rgba(black, 0.87),
     300: rgba(black, 0.87),
@@ -69,7 +95,7 @@ $cyan-palette: (
     900: white,
     A100: rgba(black, 0.87),
     A200: rgba(black, 0.87),
-    A400: rgba(black, 0.87),
+    A400: white,
     A700: white,
   )
 );
@@ -83,7 +109,8 @@ $red-palette: (
   200: #ef9a9a,
   300: #e57373,
   400: #ef5350,
-  500: #f44336,  // Rojo base para errores
+  500: #f44336,
+  // Rojo base para errores
   600: #e53935,
   700: #d32f2f,
   800: #c62828,
@@ -92,8 +119,7 @@ $red-palette: (
   A200: #ff5252,
   A400: #ff1744,
   A700: #d50000,
-  contrast: (
-    50: rgba(black, 0.87),
+  contrast: (50: rgba(black, 0.87),
     100: rgba(black, 0.87),
     200: rgba(black, 0.87),
     300: rgba(black, 0.87),
@@ -114,20 +140,17 @@ $red-palette: (
 // TEMA CON VERDE MENTA COMO PRIMARIO
 // ============================================
 $my-primary: mat.m2-define-palette($mint-green-palette, 800, 600, 900);
-$my-accent: mat.m2-define-palette($cyan-palette, A200, A100, A400);
+$my-accent: mat.m2-define-palette($purple-palette, A700, A400, 600);
 $my-warn: mat.m2-define-palette($red-palette, 500);
 
-$my-theme: mat.m2-define-light-theme((
-  color: (
-    primary: $my-primary,
-    accent: $my-accent,
-    warn: $my-warn,
-  ),
-  typography: mat.m2-define-typography-config(
-    $font-family: 'Roboto, "Helvetica Neue", sans-serif',
-  ),
-  density: 0,
-));
+$my-theme: mat.m2-define-light-theme((color: (primary: $my-primary,
+        accent: $my-accent,
+        warn: $my-warn,
+      ),
+      typography: mat.m2-define-typography-config($font-family: 'Roboto, "Helvetica Neue", sans-serif',
+      ),
+      density: 0,
+    ));
 
 // Aplicar tema a todos los componentes
 @include mat.all-component-themes($my-theme);

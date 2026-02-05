@@ -4,7 +4,11 @@
 
 :root {
   /* Primary color (mint green) */
-  --color-primary: #1ee88e;
+  --color-primary: #23ba7b;
+
+  /* Accent color (vibrant purple) */
+  --color-accent: #8b5cf6;
+  --color-accent-hover: #7e22ce;
 
   /* Success colors (green variations) */
   --color-success-bg: #c3f0e0;
@@ -13,6 +17,14 @@
   /* Error colors */
   --color-error-bg: #ffcdd2;
   --color-error-text: #c62828;
+
+  /* Info colors */
+  --color-info-bg: #dbeafe;
+  --color-info-text: #3b82f6;
+
+  /* Warning colors */
+  --color-warning-bg: #fef3c7;
+  --color-warning-text: #f59e0b;
 
   /* Surface colors */
   --color-surface: #ffffff;
@@ -92,7 +104,7 @@ h1 {
    ======================================== */
 
 mat-divider {
-  margin-bottom: 16px !important;
+  margin: 16px !important;
 }
 
 mat-card {
