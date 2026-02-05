@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TipoFinanza, MedioPago } from '../models/usuarios.model';
 import { FinanzasService } from '../services/finanzas.service';
 import { Auth } from '../services/auth';
 import Swal from 'sweetalert2';
