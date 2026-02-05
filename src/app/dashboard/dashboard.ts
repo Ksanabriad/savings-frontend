@@ -1,6 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { FinanzasService } from '../services/finanzas.service';
 import { Auth } from '../services/auth';
 import { forkJoin } from 'rxjs';
@@ -27,7 +30,7 @@ interface Transaction {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
