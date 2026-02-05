@@ -4,28 +4,42 @@
       <div class="logo">Easy<span>Save</span> 💰</div>
       <h1>¡Hola de nuevo!</h1>
       <p class="subtitle">Ingresa tus credenciales para gestionar tus finanzas.</p>
-    </header> <!-- Vinculación con tu loginForm de TypeScript -->
+    </header>
+
     <form [formGroup]="loginForm" class="auth-form" (ngSubmit)="login()" novalidate>
-      <div class="form-group"> <label>Correo electrónico o nombre de usuario</label>
-        <div class="input-container"> <input type="text" formControlName="username" />
-        </div>
-        <div *ngIf="submitted && loginForm.get('username')?.hasError('required')" class="error-message">
+      <!-- Username field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Correo electrónico o nombre de usuario</mat-label>
+        <input matInput type="text" formControlName="username" />
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
           El correo electrónico o nombre de usuario es obligatorio.
-        </div>
-      </div>
-      <div class="form-group"> <label>Contraseña</label>
-        <div class="input-container"> <input type="password" formControlName="password" /> </div>
-        <div *ngIf="submitted && loginForm.get('password')?.hasError('required')" class="error-message">
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password field -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-icon matPrefix>lock</mat-icon>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
           La contraseña es obligatoria.
-        </div>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-options">
+        <a (click)="forgotPassword(); $event.preventDefault()" class="forgot-link">
+          ¿Olvidaste tu contraseña?
+        </a>
       </div>
-      <div class="form-options"> <a (click)="forgotPassword(); $event.preventDefault()" style="cursor: pointer"
-          class="forgot-link">¿Olvidaste tu contraseña?</a> </div>
-      <button type="submit" class="btn-primary"> Iniciar Sesión </button>
+
+      <button mat-raised-button color="primary" type="submit" class="btn-full-width">
+        Iniciar Sesión
+      </button>
     </form>
 
     <footer class="login-footer">
-      <p>¿No tienes una cuenta? <a style="cursor: pointer" (click)="goToRegister()">Regístrate gratis</a></p>
+      <p>¿No tienes una cuenta? <a (click)="goToRegister()">Regístrate gratis</a></p>
     </footer>
   </div>
 </div>

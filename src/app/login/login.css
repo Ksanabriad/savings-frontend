@@ -1,31 +1,59 @@
-.form-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.85rem;
-  margin: 1.5rem 0 2.5rem;
-  color: var(--color-text-main);
+.subtitle {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  margin-top: 0.5rem;
 }
 
-.btn-primary {
-  width: 100%
+.auth-form {
+  margin-top: 2rem;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.form-options {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.5rem 0 2rem 0;
 }
 
 .forgot-link {
-  color: var(--color-secondary);
+  color: #1ee88e;
   text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.forgot-link:hover {
+  color: #14d97d;
+}
+
+.btn-full-width {
+  width: 100%;
+  height: 48px;
+  font-size: 1rem;
   font-weight: 600;
 }
 
 .login-footer {
   margin-top: 2.5rem;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--color-text-muted);
 }
 
 .login-footer a {
-  color: var(--color-secondary);
+  color: #1ee88e;
   text-decoration: none;
   font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.login-footer a:hover {
+  color: #14d97d;
 }
