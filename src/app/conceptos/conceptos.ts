@@ -9,7 +9,6 @@ import Swal from 'sweetalert2';
     selector: 'app-conceptos',
     standalone: false,
     templateUrl: './conceptos.html',
-    styleUrl: './conceptos.css',
 })
 export class Conceptos implements OnInit {
     public conceptos: any[] = [];

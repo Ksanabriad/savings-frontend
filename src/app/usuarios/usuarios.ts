@@ -12,8 +12,8 @@ import Swal from 'sweetalert2';
   selector: 'app-usuarios',
   standalone: false,
   templateUrl: './usuarios.html',
-  styleUrl: './usuarios.css',
 })
+
 export class Usuarios implements OnInit {
   usuarios!: Array<any>;
   public dataSource!: MatTableDataSource<any>;

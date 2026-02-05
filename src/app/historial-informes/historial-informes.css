@@ -1,12 +1,33 @@
-.container {
+.generar-seccion {
+    margin: 20px 0;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: nowrap;
+    /* Prevent wrapping */
     padding: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
 }
 
-table {
-    width: 100%;
-    margin-top: 20px;
+.generar-seccion h3 {
+    margin: 0;
+    white-space: nowrap;
+    /* Prevent text wrapping */
+    color: #475569;
+    flex-shrink: 0;
+    /* Don't shrink */
 }
 
-mat-card-header {
-    margin-bottom: 10px;
+.generar-seccion mat-form-field {
+    flex: 1 1 200px;
+    min-width: 150px;
+}
+
+.generar-seccion button {
+    height: 56px;
+    flex-shrink: 0;
+    /* Don't shrink button */
 }
