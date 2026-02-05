@@ -1,25 +1,4 @@
-:host {
-    --primary-color: #6366f1;
-    --success-color: #10b981;
-    --warning-color: #f59e0b;
-    --danger-color: #ef4444;
-    --bg-card: #ffffff;
-    --bg-gradient-start: #6366f1;
-    --bg-gradient-end: #8b5cf6;
-    --text-primary: #1f2937;
-    --text-secondary: #6b7280;
-    --border-color: #e5e7eb;
-    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-}
-
-.dashboard-container {
-    padding: 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    background: linear-gradient(135deg, #f5f7fa 0%, #e8ebf1 100%);
-    min-height: 100vh;
-}
+/* Dashboard-specific styles - most inherited from global styles.scss */
 
 /* Header */
 .dashboard-header {
@@ -32,42 +11,15 @@
 .greeting h1 {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--text-primary);
     margin: 0;
 }
 
 .greeting p {
-    color: var(--text-secondary);
+    color: var(--color-text-muted);
     margin: 0.5rem 0 0 0;
 }
 
-.btn-new-transaction {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
-    color: white;
-    border: none;
-    border-radius: 0.75rem;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: var(--shadow-lg);
-}
-
-.btn-new-transaction:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-}
-
-.btn-new-transaction .icon {
-    font-size: 1.5rem;
-    font-weight: 300;
-}
-
-/* Summary Cards */
+/* Summary Cards Grid */
 .summary-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -76,19 +28,18 @@
 }
 
 .summary-card {
-    background: var(--bg-card);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    box-shadow: var(--shadow-lg);
     transition: transform 0.2s;
-    border: 1px solid var(--border-color);
 }
 
 .summary-card:hover {
     transform: translateY(-4px);
+}
+
+.summary-card mat-card-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem !important;
 }
 
 .summary-card .card-icon {
@@ -102,20 +53,20 @@
 
 .summary-card .card-label {
     font-size: 0.875rem;
-    color: var(--text-secondary);
+    color: var(--color-text-muted);
     margin: 0 0 0.5rem 0;
     font-weight: 500;
 }
 
-.summary-card .cardvalue {
+.summary-card .card-value {
     font-size: 1.75rem;
     font-weight: 700;
     margin: 0;
-    color: var(--text-primary);
 }
 
+/* Summary Card Color Variations */
 .summary-card.balance {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1ee88e 0%, #14d97d 100%);
     color: white;
     border: none;
 }
@@ -126,19 +77,19 @@
 }
 
 .summary-card.income .card-value {
-    color: var(--success-color);
+    color: #10b981;
 }
 
 .summary-card.expenses .card-value {
-    color: var(--danger-color);
+    color: #ef4444;
 }
 
 .summary-card.savings .card-value {
-    color: var(--success-color);
+    color: #10b981;
 }
 
 .summary-card.savings.negative .card-value {
-    color: var(--danger-color);
+    color: #ef4444;
 }
 
 /* Charts Section */
@@ -149,27 +100,6 @@
     margin-bottom: 2rem;
 }
 
-.chart-card {
-    background: var(--bg-card);
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border-color);
-}
-
-.card-header h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 0 0 0.25rem 0;
-}
-
-.card-header p {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    margin: 0 0 1.5rem 0;
-}
-
 /* Bar Chart */
 .bar-chart {
     padding: 1rem 0;
@@ -178,7 +108,7 @@
 .chart-bars {
     display: flex;
     justify-content: space-around;
-    align-items: stretch; /* Change from flex-end to stretch so children take full height */
+    align-items: stretch;
     height: 250px;
     padding-bottom: 1rem;
     gap: 1rem;
@@ -190,8 +120,8 @@
     flex-direction: column;
     align-items: center;
     min-width: 60px;
-    height: 100%; /* Ensure full height */
-    justify-content: flex-end; /* Align content to bottom */
+    height: 100%;
+    justify-content: flex-end;
 }
 
 .bar-wrapper {
@@ -205,7 +135,6 @@
 
 .bar {
     width: 30px;
-    background: linear-gradient(to top, var(--primary-color), var(--bg-gradient-end));
     border-radius: 0.5rem 0.5rem 0 0;
     transition: height 0.3s ease;
     position: relative;
@@ -228,7 +157,7 @@
     top: -1.5rem;
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: var(--color-text-muted);
     white-space: nowrap;
 }
 
@@ -236,7 +165,7 @@
     margin-top: 0.5rem;
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: var(--color-text-muted);
 }
 
 .chart-legend {
@@ -245,7 +174,7 @@
     gap: 2rem;
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--color-border);
 }
 
 .legend-item {
@@ -253,7 +182,7 @@
     align-items: center;
     gap: 0.5rem;
     font-size: 0.875rem;
-    color: var(--text-secondary);
+    color: var(--color-text-muted);
 }
 
 .legend-color {
@@ -299,7 +228,7 @@
 .percentage-center .percentage-label {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--color-text-main);
 }
 
 .percentage-stats {
@@ -327,16 +256,16 @@
 
 .percentage-row .percentage-label {
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--color-text-main);
 }
 
 .percentage-row.income-row .percentage-value {
-    color: var(--success-color);
+    color: #10b981;
     font-weight: 700;
 }
 
 .percentage-row.expense-row .percentage-value {
-    color: var(--danger-color);
+    color: #ef4444;
     font-weight: 700;
 }
 
@@ -371,25 +300,25 @@
 
 .concepto-name {
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--color-text-main);
 }
 
 .concepto-amount {
     font-weight: 700;
-    color: var(--primary-color);
+    color: #1ee88e;
 }
 
 .concepto-bar-wrapper {
     grid-column: 1 / 2;
     height: 0.5rem;
-    background: var(--border-color);
+    background: var(--color-border);
     border-radius: 1rem;
     overflow: hidden;
 }
 
 .concepto-bar {
     height: 100%;
-    background: linear-gradient(90deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    background: linear-gradient(90deg, #1ee88e, #14d97d);
     border-radius: 1rem;
     transition: width 0.3s ease;
 }
@@ -398,7 +327,7 @@
     grid-column: 2 / 3;
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: var(--color-text-muted);
     text-align: right;
 }
 
@@ -438,12 +367,12 @@
 
 .transaction-icon.ingreso {
     background: rgba(16, 185, 129, 0.1);
-    color: var(--success-color);
+    color: #10b981;
 }
 
 .transaction-icon.egreso {
     background: rgba(239, 68, 68, 0.1);
-    color: var(--danger-color);
+    color: #ef4444;
 }
 
 .transaction-info {
@@ -455,12 +384,12 @@
 
 .transaction-concept {
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--color-text-main);
 }
 
 .transaction-date {
     font-size: 0.875rem;
-    color: var(--text-secondary);
+    color: var(--color-text-muted);
 }
 
 .transaction-amount {
@@ -469,46 +398,26 @@
 }
 
 .transaction-amount.ingreso {
-    color: var(--success-color);
+    color: #10b981;
 }
 
 .transaction-amount.egreso {
-    color: var(--danger-color);
+    color: #ef4444;
 }
 
 .btn-view-all {
     width: 100%;
-    padding: 0.75rem;
-    background: transparent;
-    border: 2px solid var(--border-color);
-    border-radius: 0.5rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.btn-view-all:hover {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
 }
 
 .no-data {
     text-align: center;
     padding: 2rem;
-    color: var(--text-secondary);
+    color: var(--color-text-muted);
 }
 
 .no-data p {
     margin: 0;
     font-style: italic;
-}
-
-/* Admin View */
-.admin-view {
-    padding: 2rem;
-    text-align: center;
 }
 
 /* Responsive */
@@ -523,10 +432,6 @@
 }
 
 @media (max-width: 768px) {
-    .dashboard-container {
-        padding: 1rem;
-    }
-
     .dashboard-header {
         flex-direction: column;
         align-items: flex-start;
