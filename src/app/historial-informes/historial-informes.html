@@ -19,8 +19,15 @@
 
                 <mat-form-field appearance="outline" subscriptSizing="dynamic" *ngIf="authService.isAdmin()">
                     <mat-label>Usuario</mat-label>
-                    <input matInput [(ngModel)]="targetUser">
+                    <input matInput [formControl]="userControl" [matAutocomplete]="auto"
+                        placeholder="Buscar usuario...">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+                            {{ user }}
+                        </mat-option>
+                    </mat-autocomplete>
                 </mat-form-field>
+
 
                 <mat-form-field appearance="outline" subscriptSizing="dynamic">
                     <mat-label>Mes</mat-label>

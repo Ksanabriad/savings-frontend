@@ -33,6 +33,7 @@ import { Conceptos } from './conceptos/conceptos';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Landing } from './landing/landing';
 import { Register } from './register/register';
 import { NewUsuario } from './new-usuario/new-usuario';
@@ -73,6 +74,7 @@ import { HistorialInformes } from './historial-informes/historial-informes';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatAutocompleteModule,
     ReactiveFormsModule,
     FormsModule,
   ],

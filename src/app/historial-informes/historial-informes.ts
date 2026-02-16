@@ -7,6 +7,9 @@ import { Auth } from '../services/auth';
 import { HistorialInforme } from '../models/usuarios.model';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
     selector: 'app-historial-informes',
@@ -38,6 +41,9 @@ export class HistorialInformes implements OnInit {
 
     // Admin Generation
     public targetUser: string = '';
+    public userControl = new FormControl('');
+    public allUsers: string[] = [];
+    public filteredUsers!: Observable<string[]>;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -49,6 +55,24 @@ export class HistorialInformes implements OnInit {
             this.displayedColumns = this.displayedColumns.filter(c => c !== 'usuario');
         }
         this.loadHistorial();
+
+        // Load users for autocomplete if admin
+        if (this.authService.isAdmin()) {
+            this.finanzasService.getUsuarios().subscribe(users => {
+                this.allUsers = users.map((u: any) => u.username);
+
+                // Setup autocomplete filtering
+                this.filteredUsers = this.userControl.valueChanges.pipe(
+                    startWith(''),
+                    map(value => this._filterUsers(value || ''))
+                );
+            });
+        }
+    }
+
+    private _filterUsers(value: string): string[] {
+        const filterValue = value.toLowerCase();
+        return this.allUsers.filter(user => user.toLowerCase().includes(filterValue));
     }
 
     loadHistorial(): void {
@@ -102,11 +126,12 @@ export class HistorialInformes implements OnInit {
         let username = this.authService.getUsername();
 
         if (this.authService.isAdmin()) {
-            if (!this.targetUser) {
+            const selectedUser = this.userControl.value;
+            if (!selectedUser) {
                 Swal.fire('Atención', 'Debe especificar el usuario para el cual generar el informe.', 'warning');
                 return;
             }
-            username = this.targetUser;
+            username = selectedUser;
         }
 
         if (!username) return;
