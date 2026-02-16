@@ -56,12 +56,12 @@ export class HistorialInformes implements OnInit {
         }
         this.loadHistorial();
 
-        // Load users for autocomplete if admin
+        // Cargar usuarios para el autocompletado si es administrador
         if (this.authService.isAdmin()) {
             this.finanzasService.getUsuarios().subscribe(users => {
                 this.allUsers = users.map((u: any) => u.username);
 
-                // Setup autocomplete filtering
+                // Configurar el filtrado de autocompletado
                 this.filteredUsers = this.userControl.valueChanges.pipe(
                     startWith(''),
                     map(value => this._filterUsers(value || ''))
@@ -83,7 +83,7 @@ export class HistorialInformes implements OnInit {
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;
 
-                // Custom Filter Predicate
+                // Predicado de filtro personalizado
                 this.dataSource.filterPredicate = (data: HistorialInforme, filter: string) => {
                     const searchTerms = JSON.parse(filter);
 
@@ -94,7 +94,7 @@ export class HistorialInformes implements OnInit {
 
                     if (data.fechaGeneracion) {
                         const date = new Date(data.fechaGeneracion);
-                        // Month is 0-indexed in JS, so +1
+                        // El mes está indexado en 0 en JS, ¡así que +1!
                         monthMatch = searchTerms.month ? (date.getMonth() + 1) == searchTerms.month : true;
                         yearMatch = searchTerms.year ? date.getFullYear() == searchTerms.year : true;
                     }

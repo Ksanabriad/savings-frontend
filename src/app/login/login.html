@@ -7,7 +7,7 @@
     </header>
 
     <form [formGroup]="loginForm" class="auth-form" (ngSubmit)="login()" novalidate>
-      <!-- Username field -->
+      <!-- Campo de correo electrónico o nombre de usuario -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Correo electrónico o nombre de usuario</mat-label>
         <input matInput type="text" formControlName="username" />
@@ -17,7 +17,7 @@
         </mat-error>
       </mat-form-field>
 
-      <!-- Password field -->
+      <!-- Campo de contraseña -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Contraseña</mat-label>
         <input matInput type="password" formControlName="password" />

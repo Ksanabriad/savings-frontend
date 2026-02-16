@@ -11,7 +11,7 @@
         </header>
 
         <form [formGroup]="registerForm" class="auth-form" (ngSubmit)="save()" novalidate>
-            <!-- Email field -->
+            <!-- Campo de correo electrónico -->
             <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
                 <mat-label>Correo electrónico</mat-label>
                 <input matInput type="email" formControlName="email" />
@@ -27,7 +27,7 @@
                 </mat-error>
             </mat-form-field>
 
-            <!-- Username field -->
+            <!-- Campo de nombre de usuario -->
             <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
                 <mat-label>Nombre de usuario</mat-label>
                 <input matInput type="text" formControlName="username" />
@@ -49,7 +49,7 @@
                 </mat-error>
             </mat-form-field>
 
-            <!-- Password field -->
+            <!-- Campo de contraseña -->
             <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
                 <mat-label>Contraseña</mat-label>
                 <input matInput type="password" formControlName="password" />
@@ -62,7 +62,7 @@
                 </mat-error>
             </mat-form-field>
 
-            <!-- Confirm Password field -->
+            <!-- Campo de repetir contraseña -->
             <mat-form-field appearance="outline" subscriptSizing="dynamic" class="full-width">
                 <mat-label>Repetir Contraseña</mat-label>
                 <input matInput type="password" formControlName="confirmPassword" />

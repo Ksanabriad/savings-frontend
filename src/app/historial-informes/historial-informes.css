@@ -4,7 +4,6 @@
     gap: 12px;
     align-items: center;
     flex-wrap: nowrap;
-    /* Prevent wrapping */
     padding: 20px;
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
@@ -15,10 +14,8 @@
 .generar-seccion h3 {
     margin: 0;
     white-space: nowrap;
-    /* Prevent text wrapping */
     color: #475569;
     flex-shrink: 0;
-    /* Don't shrink */
 }
 
 .generar-seccion mat-form-field {
@@ -29,5 +26,4 @@
 .generar-seccion button {
     height: 56px;
     flex-shrink: 0;
-    /* Don't shrink button */
 }
