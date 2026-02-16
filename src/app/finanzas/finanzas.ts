@@ -183,7 +183,7 @@ export class Finanzas implements OnInit {
             inputLabel: 'Nombre del concepto',
             inputPlaceholder: 'Ingresa el nuevo concepto',
             showCancelButton: true,
-            confirmButtonText: 'Agregar',
+            confirmButtonText: 'Guardar',
             cancelButtonText: 'Cancelar',
             inputValidator: (value) => {
                 if (!value) {
@@ -232,7 +232,7 @@ export class Finanzas implements OnInit {
     eliminarFinanza(finanza: Finanza) {
         Swal.fire({
             title: '¿Estás seguro?',
-            text: `Vas a eliminar el registro: ${finanza.concepto}`,
+            text: `Vas a eliminar el registro: ${finanza.concepto?.nombre || 'Sin concepto'}`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#ef4444',
