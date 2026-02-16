@@ -7,9 +7,9 @@
         <mat-card-content>
             <form [formGroup]="usuarioForm" (ngSubmit)="save()" class="user-form">
                 <mat-form-field appearance="outline">
-                    <mat-label>Username</mat-label>
+                    <mat-label>Nombre de usuario</mat-label>
                     <input matInput formControlName="username" placeholder="Nombre de usuario" />
-                    <mat-error *ngIf="usuarioForm.get('username')?.hasError('required')">El username es
+                    <mat-error *ngIf="usuarioForm.get('username')?.hasError('required')">El nombre de usuario es
                         obligatorio</mat-error>
                     <mat-error *ngIf="usuarioForm.get('username')?.hasError('minLength')">Debe tener al menos 4
                         caracteres</mat-error>
@@ -20,16 +20,16 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Email</mat-label>
+                    <mat-label>Correo electrónico</mat-label>
                     <input matInput formControlName="email" type="email" placeholder="email@ejemplo.com" />
-                    <mat-error *ngIf="usuarioForm.get('email')?.hasError('required')">El email es
+                    <mat-error *ngIf="usuarioForm.get('email')?.hasError('required')">El correo electrónico es
                         obligatorio</mat-error>
                     <mat-error *ngIf="usuarioForm.get('email')?.hasError('email')">Formato inválido. Debe ser:
                         texto@dominio.com</mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Password</mat-label>
+                    <mat-label>Contraseña</mat-label>
                     <input matInput formControlName="password" type="password" placeholder="6-12 caracteres" />
                     <mat-error *ngIf="usuarioForm.get('password')?.hasError('required')">La contraseña es
                         obligatoria</mat-error>
