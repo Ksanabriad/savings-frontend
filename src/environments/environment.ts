@@ -1,4 +1,5 @@
 export const environment = {
-  production: false,
-  backendHost: 'http://localhost:8080',
+  production: true,
+  backendHost: 'https://savings-backend-production.up.railway.app',
 };
+
