@@ -6,6 +6,10 @@ import { FinanzasService } from '../services/finanzas.service';
 import { Auth } from '../services/auth';
 import { HistorialInforme } from '../models/usuarios.model';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
     selector: 'app-historial-informes',
@@ -15,7 +19,7 @@ import Swal from 'sweetalert2';
 })
 export class HistorialInformes implements OnInit {
     public dataSource!: MatTableDataSource<HistorialInforme>;
-    public displayedColumns = ['id', 'usuario', 'fechaGeneracion', 'nombreArchivo', 'acciones'];
+    public displayedColumns = ['usuario', 'fechaGeneracion', 'nombreArchivo', 'acciones'];
 
     public meses = [
         { value: 1, name: 'Enero' }, { value: 2, name: 'Febrero' }, { value: 3, name: 'Marzo' },
@@ -37,17 +41,38 @@ export class HistorialInformes implements OnInit {
 
     // Admin Generation
     public targetUser: string = '';
+    public userControl = new FormControl('');
+    public allUsers: string[] = [];
+    public filteredUsers!: Observable<string[]>;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
 
-    constructor(private finanzasService: FinanzasService, public authService: Auth) { }
+    constructor(private finanzasService: FinanzasService, public authService: Auth, private router: Router) { }
 
     ngOnInit(): void {
         if (!this.authService.isAdmin()) {
             this.displayedColumns = this.displayedColumns.filter(c => c !== 'usuario');
         }
         this.loadHistorial();
+
+        // Cargar usuarios para el autocompletado si es administrador
+        if (this.authService.isAdmin()) {
+            this.finanzasService.getUsuarios().subscribe(users => {
+                this.allUsers = users.map((u: any) => u.username);
+
+                // Configurar el filtrado de autocompletado
+                this.filteredUsers = this.userControl.valueChanges.pipe(
+                    startWith(''),
+                    map(value => this._filterUsers(value || ''))
+                );
+            });
+        }
+    }
+
+    private _filterUsers(value: string): string[] {
+        const filterValue = value.toLowerCase();
+        return this.allUsers.filter(user => user.toLowerCase().includes(filterValue));
     }
 
     loadHistorial(): void {
@@ -58,7 +83,7 @@ export class HistorialInformes implements OnInit {
                 this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;
 
-                // Custom Filter Predicate
+                // Predicado de filtro personalizado
                 this.dataSource.filterPredicate = (data: HistorialInforme, filter: string) => {
                     const searchTerms = JSON.parse(filter);
 
@@ -69,7 +94,7 @@ export class HistorialInformes implements OnInit {
 
                     if (data.fechaGeneracion) {
                         const date = new Date(data.fechaGeneracion);
-                        // Month is 0-indexed in JS, so +1
+                        // El mes está indexado en 0 en JS, ¡así que +1!
                         monthMatch = searchTerms.month ? (date.getMonth() + 1) == searchTerms.month : true;
                         yearMatch = searchTerms.year ? date.getFullYear() == searchTerms.year : true;
                     }
@@ -101,11 +126,12 @@ export class HistorialInformes implements OnInit {
         let username = this.authService.getUsername();
 
         if (this.authService.isAdmin()) {
-            if (!this.targetUser) {
+            const selectedUser = this.userControl.value;
+            if (!selectedUser) {
                 Swal.fire('Atención', 'Debe especificar el usuario para el cual generar el informe.', 'warning');
                 return;
             }
-            username = this.targetUser;
+            username = selectedUser;
         }
 
         if (!username) return;
@@ -155,5 +181,37 @@ export class HistorialInformes implements OnInit {
             return nombreArchivo.replace(username + '_', 'EasySave_');
         }
         return nombreArchivo;
+    }
+
+    eliminarInforme(id: number, nombreArchivo: string): void {
+        Swal.fire({
+            title: '¿Eliminar informe?',
+            text: `Se eliminará el informe ${nombreArchivo}. Podrá regenerarlo después.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#ef4444',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.finanzasService.eliminarInforme(id).subscribe({
+                    next: () => {
+                        Swal.fire('Eliminado', 'El informe ha sido eliminado correctamente', 'success');
+                        this.loadHistorial();
+                    },
+                    error: (err: any) => {
+                        console.error('Error eliminando informe:', err);
+                        Swal.fire('Error', 'No se pudo eliminar el informe', 'error');
+                    }
+                });
+            }
+        });
+    }
+
+    goBack() {
+        const username = this.authService.getUsername();
+        if (username) {
+            this.router.navigate([`/${username}/finanzas`]);
+        }
     }
 }

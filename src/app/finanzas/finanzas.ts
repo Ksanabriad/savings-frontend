@@ -45,6 +45,10 @@ export class Finanzas implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        if (!this.auth.isAdmin()) {
+            this.displayedColumns = this.displayedColumns.filter(c => c !== 'usuario');
+        }
+
         this.loadFinanzas();
         this.loadFilterOptions();
 
@@ -179,7 +183,7 @@ export class Finanzas implements OnInit {
             inputLabel: 'Nombre del concepto',
             inputPlaceholder: 'Ingresa el nuevo concepto',
             showCancelButton: true,
-            confirmButtonText: 'Agregar',
+            confirmButtonText: 'Guardar',
             cancelButtonText: 'Cancelar',
             inputValidator: (value) => {
                 if (!value) {
@@ -203,7 +207,10 @@ export class Finanzas implements OnInit {
     }
 
     editarFinanza(id: number): void {
-        this.router.navigate(['/admin/editar-finanza', id]);
+        const username = this.auth.getUsername();
+        if (username) {
+            this.router.navigate([`/${username}/editar-finanza`, id]);
+        }
     }
 
     downloadFile(id: number): void {
@@ -225,7 +232,7 @@ export class Finanzas implements OnInit {
     eliminarFinanza(finanza: Finanza) {
         Swal.fire({
             title: '¿Estás seguro?',
-            text: `Vas a eliminar el registro: ${finanza.concepto}`,
+            text: `Vas a eliminar el registro: ${finanza.concepto?.nombre || 'Sin concepto'}`,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#ef4444',
@@ -247,5 +254,14 @@ export class Finanzas implements OnInit {
                 });
             }
         });
+    }
+    goToNewFinanza() {
+        const username = this.auth.getUsername();
+        console.log('Navigating to new finanza. Username:', username);
+        if (username) {
+            this.router.navigate([`/${username}/nueva-finanza`]);
+        } else {
+            console.error('No username found for navigation');
+        }
     }
 }

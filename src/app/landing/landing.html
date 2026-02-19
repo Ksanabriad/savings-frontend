@@ -1,25 +1,27 @@
-<div class="landing-container">
-    <nav class="navbar">
-        <div class="logo">Easy<span>Save</span> 💰</div>
-        <button class="btn-outline" (click)="goToLogin()">Iniciar Sesión</button>
-    </nav>
-
-    <main class="hero-section">
-        <div class="welcome-card">
-            <span class="badge">Bienvenido a la nueva era del ahorro</span>
-            <h1>
-                La web que te ayuda a saber cuánto <span>tuviste, tienes y tendrás</span>
-            </h1>
-            <p>
-                Controla tus finanzas de una manera eficiente e inteligente. Transforma tus números en decisiones
-                inteligentes.
-            </p>
-
-            <div class="cta-group">
-                <button class="btn-primary" (click)="goToLogin()">
-                    Registra tus finanzas 🚀
-                </button>
+<div class="container">
+    <mat-card>
+        <mat-card-header>
+            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                <div class="logo">Easy<span>Save</span> 💰</div>
             </div>
-        </div>
-    </main>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="hero-content">
+                <span class="badge">Bienvenido a la nueva era del ahorro</span>
+                <h1>
+                    La web que te ayuda a saber cuánto <span class="highlight">tuviste, tienes y tendrás</span>
+                </h1>
+                <p class="hero-description">
+                    Controla tus finanzas de una manera eficiente e inteligente. Transforma tus números en decisiones
+                    inteligentes.
+                </p>
+
+                <div class="cta-group">
+                    <button mat-raised-button color="primary" class="cta-button" (click)="goToLogin()">
+                        Registra tus finanzas  🚀
+                    </button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
 </div>

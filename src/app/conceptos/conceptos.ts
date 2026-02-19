@@ -9,7 +9,6 @@ import Swal from 'sweetalert2';
     selector: 'app-conceptos',
     standalone: false,
     templateUrl: './conceptos.html',
-    styleUrl: './conceptos.css',
 })
 export class Conceptos implements OnInit {
     public conceptos: any[] = [];
@@ -49,6 +48,9 @@ export class Conceptos implements OnInit {
             cancelButtonText: 'Cancelar',
             inputValidator: (value) => {
                 if (!value) return 'El nombre es obligatorio';
+                if (value.length < 3) return 'El nombre debe tener al menos 3 caracteres';
+                if (value.length > 50) return 'El nombre no puede exceder 50 caracteres';
+                if (!/^[a-zA-Z0-9\sáéíóúÁÉÍÓÚñÑ]+$/.test(value)) return 'Solo se permiten letras, números y espacios';
                 return null;
             }
         }).then((result) => {
@@ -75,6 +77,9 @@ export class Conceptos implements OnInit {
             cancelButtonText: 'Cancelar',
             inputValidator: (value) => {
                 if (!value) return 'El nombre es obligatorio';
+                if (value.length < 3) return 'El nombre debe tener al menos 3 caracteres';
+                if (value.length > 50) return 'El nombre no puede exceder 50 caracteres';
+                if (!/^[a-zA-Z0-9\sáéíóúÁÉÍÓÚñÑ]+$/.test(value)) return 'Solo se permiten letras, números y espacios';
                 return null;
             }
         }).then((result) => {

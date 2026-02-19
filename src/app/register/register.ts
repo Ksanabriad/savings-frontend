@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { UsuariosService } from '../services/usuarios.service';
 import { Usuario } from '../models/usuarios.model';
 import Swal from 'sweetalert2';
@@ -13,7 +14,6 @@ import Swal from 'sweetalert2';
 })
 export class Register implements OnInit {
     public registerForm!: FormGroup;
-    // ... existing properties ...
     public errorMessage: string | null = null;
     public emailError: string | null = null;
     public usernameError: string | null = null;
@@ -22,21 +22,34 @@ export class Register implements OnInit {
     constructor(private formBuilder: FormBuilder, private router: Router, private apiService: UsuariosService) { }
 
     ngOnInit(): void {
-        this.registerForm = this.formBuilder.group(
-            {
-                email: ['', [Validators.required, Validators.email]],
-                username: ['', Validators.required],
-                password: ['', Validators.required],
-                confirmPassword: ['', Validators.required],
-            },
-            { validators: this.passwordMatchValidator }
-        );
-    }
-
-    passwordMatchValidator(form: FormGroup) {
-        const password = form.get('password')?.value;
-        const confirmPassword = form.get('confirmPassword')?.value;
-        return password === confirmPassword ? null : { mismatch: true };
+        this.registerForm = this.formBuilder.group({
+            email: ['', [
+                Validators.required,
+                RxwebValidators.email()
+            ]],
+            username: ['', [
+                Validators.required,
+                RxwebValidators.minLength({ value: 4 }),
+                RxwebValidators.maxLength({ value: 20 }),
+                RxwebValidators.pattern({ expression: { 'alphaNumeric': /^[a-zA-Z0-9]+$/ } })
+            ]],
+            password: ['', [
+                Validators.required,
+                RxwebValidators.password({
+                    validation: {
+                        minLength: 6,
+                        maxLength: 12,
+                        digit: true,
+                        lowerCase: true,
+                        upperCase: true
+                    }
+                })
+            ]],
+            confirmPassword: ['', [
+                Validators.required,
+                RxwebValidators.compare({ fieldName: 'password' })
+            ]]
+        });
     }
 
     save() {

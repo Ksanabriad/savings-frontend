@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TipoFinanza, MedioPago } from '../models/usuarios.model';
 import { FinanzasService } from '../services/finanzas.service';
 import { Auth } from '../services/auth';
 import Swal from 'sweetalert2';
@@ -21,10 +20,12 @@ export class NewFinanza implements OnInit {
     conceptos: any[] = [];
     pdfFileUrl!: string;
 
+    maxDate: Date = new Date();
+
     constructor(
         private fb: FormBuilder,
         private finanzasService: FinanzasService,
-        private auth: Auth,
+        public auth: Auth,
         private router: Router,
         private route: ActivatedRoute
     ) { }
@@ -70,7 +71,7 @@ export class NewFinanza implements OnInit {
             next: (finanza) => {
                 // Mapear los datos al formulario
                 this.finanzaFormGroup.patchValue({
-                    fecha: new Date(finanza.fecha),
+                    fecha: new Date(finanza.fecha + 'T00:00:00'),
                     concepto: finanza.concepto?.nombre || '',
                     cantidad: finanza.cantidad,
                     tipo: finanza.tipo?.nombre || '',
@@ -104,7 +105,10 @@ export class NewFinanza implements OnInit {
         if (!username) return;
 
         let date: Date = new Date(this.finanzaFormGroup.value.fecha);
-        let formattedDate = date.toISOString().split('T')[0];
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        let formattedDate = `${year}-${month}-${day}`;
 
         let formData = new FormData();
         formData.set('fecha', formattedDate);
@@ -133,7 +137,7 @@ export class NewFinanza implements OnInit {
                     text: successText,
                     icon: 'success',
                 }).then(() => {
-                    this.router.navigateByUrl('/admin/finanzas');
+                    this.router.navigateByUrl(`/${username}/finanzas`);
                 });
             },
             error: (err) => {
@@ -145,5 +149,11 @@ export class NewFinanza implements OnInit {
                 });
             },
         });
+    }
+    goBack() {
+        const username = this.auth.getUsername();
+        if (username) {
+            this.router.navigate([`/${username}/finanzas`]);
+        }
     }
 }

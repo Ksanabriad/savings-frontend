@@ -13,33 +13,33 @@
 <mat-drawer-container>
   <mat-drawer #myDrawer opened="true" mode="side" position="start">
     <mat-list>
-      <mat-list-item>
-        <button mat-button routerLink="dashboard">
+      <mat-list-item *ngIf="!auth.isAdmin()">
+        <button mat-button [routerLink]="['/', getUsername(), 'dashboard']">
           <mat-icon>dashboard</mat-icon>
           Dashboard
         </button>
       </mat-list-item>
       <mat-list-item>
-        <button mat-button routerLink="finanzas">
+        <button mat-button [routerLink]="['/', getUsername(), 'finanzas']">
           <mat-icon>account_balance_wallet</mat-icon>
           Finanzas
         </button>
       </mat-list-item>
       <mat-list-item>
-        <button mat-button routerLink="conceptos">
+        <button mat-button [routerLink]="['/', getUsername(), 'conceptos']">
           <mat-icon>label</mat-icon>
           Conceptos
         </button>
       </mat-list-item>
 
-      <mat-list-item>
-        <button mat-button routerLink="usuarios">
+      <mat-list-item *ngIf="auth.isAdmin()">
+        <button mat-button [routerLink]="['/', getUsername(), 'usuarios']">
           <mat-icon>people</mat-icon>
           Usuarios
         </button>
       </mat-list-item>
       <mat-list-item>
-        <button mat-button routerLink="historial-informes">
+        <button mat-button [routerLink]="['/', getUsername(), 'historial-informes']">
           <mat-icon>history</mat-icon>
           Historial
         </button>

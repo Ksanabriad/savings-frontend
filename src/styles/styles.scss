@@ -1,0 +1,358 @@
+/* ========================================
+   IMPORTS
+   ======================================== */
+
+@import 'design-system.scss';
+
+/* ========================================
+   CSS VARIABLES
+   ======================================== */
+
+:root {
+  /* Primary color (mint green) */
+  --color-primary: #23ba7b;
+
+  /* Accent color (vibrant purple) */
+  --color-accent: #8b5cf6;
+  --color-accent-hover: #7e22ce;
+
+  /* Success colors (green variations) */
+  --color-success-bg: #c3f0e0;
+  --color-success-text: #16ad6a;
+
+  /* Error colors */
+  --color-error-bg: #ffcdd2;
+  --color-error-text: #c62828;
+
+  /* Info colors */
+  --color-info-bg: #dbeafe;
+  --color-info-text: #3b82f6;
+
+  /* Warning colors */
+  --color-warning-bg: #fef3c7;
+  --color-warning-text: #f59e0b;
+
+  /* Surface colors */
+  --color-surface: #ffffff;
+  --color-background: #fafafa;
+
+  /* Text colors */
+  --color-text-main: #212121;
+  --color-text-muted: #757575;
+  --color-border: #e0e0e0;
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: var(--color-text-main);
+  margin: 1.5rem 0;
+  line-height: 1.2;
+}
+
+/* ========================================
+   BRANDING
+   ======================================== */
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+}
+
+.logo span {
+  color: var(--color-primary);
+}
+
+/* ========================================
+   LOGIN/REGISTER PAGE STYLES
+   ======================================== */
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: var(--gradient-bg);
+  font-family: var(--font-family-display);
+  padding: 2rem;
+}
+
+.login-card {
+  background: var(--color-surface);
+  width: 100%;
+  max-width: 450px;
+  padding: 3.5rem;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* ========================================
+   MATERIAL DESIGN OVERRIDES
+   ======================================== */
+
+mat-divider {
+  margin: 16px !important;
+}
+
+mat-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.mat-mdc-card-header {
+  padding: 16px 24px;
+}
+
+.mat-mdc-header-cell {
+  font-weight: 700;
+  color: #475569;
+}
+
+/* ========================================
+   LAYOUT COMPONENTS
+   ======================================== */
+
+.container {
+  padding: 24px;
+  background-color: #f1f5f9;
+  min-height: 100vh;
+}
+
+/* ========================================
+   TABLE STYLES
+   ======================================== */
+
+table {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* First Column Left Aligned (e.g. Concepto, Usuario) */
+th.mat-mdc-header-cell:first-of-type,
+td.mat-mdc-cell:first-of-type {
+  text-align: left;
+  padding-left: 24px;
+}
+
+th.mat-mdc-header-cell:first-of-type .mat-sort-header-container {
+  justify-content: flex-start;
+}
+
+/* Last Column Right Aligned (e.g. Acciones) */
+th.mat-mdc-header-cell:last-of-type,
+td.mat-mdc-cell:last-of-type {
+  text-align: right;
+  padding-right: 24px;
+}
+
+th.mat-mdc-header-cell:last-of-type .mat-sort-header-container {
+  justify-content: flex-end;
+}
+
+/* Middle Columns Centered for dynamic separation */
+th.mat-mdc-header-cell:not(:first-of-type):not(:last-of-type),
+td.mat-mdc-cell:not(:first-of-type):not(:last-of-type) {
+  text-align: center;
+}
+
+th.mat-mdc-header-cell:not(:first-of-type):not(:last-of-type) .mat-sort-header-container {
+  justify-content: center;
+}
+
+/* ========================================
+   FILTER BAR COMPONENTS
+   ======================================== */
+
+.filter-bar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+}
+
+.filter-bar mat-form-field {
+  flex: 1 1 200px;
+  min-width: 150px;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
+  align-items: center;
+}
+
+.filter-actions button {
+  height: 56px;
+}
+
+/* ========================================
+   POPUP/DIALOG STYLES (SweetAlert2)
+   ======================================== */
+
+/* Main popup container */
+.swal2-popup {
+  border-radius: 16px !important;
+  padding: 2rem !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Popup title */
+.swal2-title {
+  font-size: 1.75rem !important;
+  font-weight: 600 !important;
+  color: var(--color-text-main) !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Popup content text */
+.swal2-html-container {
+  font-size: 1rem !important;
+  color: var(--color-text-muted) !important;
+  margin: 1rem 0 !important;
+}
+
+/* Confirm button (primary action) */
+.swal2-confirm {
+  background-color: #1ee88e !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 2rem !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 12px rgba(30, 232, 142, 0.3) !important;
+}
+
+.swal2-confirm:hover {
+  background-color: #14d97d !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(30, 232, 142, 0.4) !important;
+}
+
+.swal2-confirm:focus {
+  box-shadow: 0 0 0 3px rgba(30, 232, 142, 0.3) !important;
+}
+
+/* Cancel button (secondary action) */
+.swal2-cancel {
+  background-color: #f1f5f9 !important;
+  color: #475569 !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 2rem !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+.swal2-cancel:hover {
+  background-color: #e2e8f0 !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Deny button (destructive action) */
+.swal2-deny {
+  background-color: #ef4444 !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 2rem !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+}
+
+.swal2-deny:hover {
+  background-color: #dc2626 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4) !important;
+}
+
+/* Success icon */
+.swal2-success-ring {
+  border: 4px solid rgba(30, 232, 142, 0.3) !important;
+}
+
+.swal2-success-line-tip,
+.swal2-success-line-long {
+  background-color: #1ee88e !important;
+}
+
+/* Error icon */
+.swal2-error [class^='swal2-x-mark-line'] {
+  background-color: #ef4444 !important;
+}
+
+/* Warning icon */
+.swal2-warning {
+  border-color: #f59e0b !important;
+  color: #f59e0b !important;
+}
+
+/* Info icon */
+.swal2-info {
+  border-color: #3b82f6 !important;
+  color: #3b82f6 !important;
+}
+
+/* Input fields in popups */
+.swal2-input,
+.swal2-textarea {
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 1rem !important;
+  transition: border-color 0.2s ease !important;
+}
+
+.swal2-input:focus,
+.swal2-textarea:focus {
+  border-color: #1ee88e !important;
+  box-shadow: 0 0 0 3px rgba(30, 232, 142, 0.1) !important;
+  outline: none !important;
+}
+
+/* Actions container */
+.swal2-actions {
+  gap: 0.75rem !important;
+  margin-top: 1.5rem !important;
+}
+
+/* Close button */
+.swal2-close {
+  color: var(--color-text-muted) !important;
+  transition: color 0.2s ease !important;
+}
+
+.swal2-close:hover {
+  color: var(--color-text-main) !important;
+}

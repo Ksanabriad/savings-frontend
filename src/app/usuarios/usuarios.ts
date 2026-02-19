@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { FinanzasService } from '../services/finanzas.service';
+import { Auth } from '../services/auth';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -11,8 +12,8 @@ import Swal from 'sweetalert2';
   selector: 'app-usuarios',
   standalone: false,
   templateUrl: './usuarios.html',
-  styleUrl: './usuarios.css',
 })
+
 export class Usuarios implements OnInit {
   usuarios!: Array<any>;
   public dataSource!: MatTableDataSource<any>;
@@ -30,10 +31,15 @@ export class Usuarios implements OnInit {
 
   constructor(
     private finanzasService: FinanzasService,
-    private router: Router
+    private router: Router,
+    private auth: Auth
   ) { }
 
   ngOnInit(): void {
+    const username = this.auth.getUsername();
+    if (!this.auth.isAdmin() && username) {
+      this.router.navigate([`/${username}/dashboard`]);
+    }
     this.finanzasService.getUsuarios().subscribe({
       next: (data) => {
         this.usuarios = data;
@@ -86,9 +92,19 @@ export class Usuarios implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('Pendiente', 'La función de eliminar usuarios aún no está implementada en el backend', 'info');
-        // TODO: Implementar eliminación cuando exista el endpoint
-        // this.usuariosService.eliminarUsuario(usuario.id).subscribe(...);
+        this.finanzasService.eliminarUsuario(usuario.username).subscribe({
+          next: () => {
+            Swal.fire('Eliminado', 'El usuario ha sido eliminado', 'success');
+            this.finanzasService.getUsuarios().subscribe(data => {
+              this.usuarios = data;
+              this.dataSource.data = this.usuarios;
+            });
+          },
+          error: (err) => {
+            console.error(err);
+            Swal.fire('Error', 'No se pudo eliminar el usuario', 'error');
+          }
+        });
       }
     });
   }
