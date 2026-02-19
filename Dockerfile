@@ -3,12 +3,20 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Instalar dependencias (aprovecha caché de Docker)
+# ARG para recibir la URL del backend desde Railway (variable de entorno de build)
+ARG BACKEND_URL=https://savings-backend-production.up.railway.app
+
+# Instalar dependencias
 COPY package*.json ./
 RUN npm ci
 
-# Copiar fuentes y compilar
+# Copiar fuentes
 COPY . .
+
+# Sobreescribir environment.ts con la URL correcta antes de compilar
+RUN echo "export const environment = { production: true, backendHost: '${BACKEND_URL}' };" > src/environments/environment.ts
+
+# Compilar
 RUN npm run build
 
 # ── Etapa 2: Producción ─────────────────────────────────────────
