@@ -136,6 +136,45 @@ export class HistorialInformes implements OnInit {
 
         if (!username) return;
 
+        // Validar que no sea el mes en curso ni un mes futuro
+        const hoy = new Date();
+        const mesActual = hoy.getMonth() + 1;
+        const anioActual = hoy.getFullYear();
+
+        const esMesFuturo =
+            this.selectedAnio > anioActual ||
+            (this.selectedAnio === anioActual && this.selectedMes > mesActual);
+
+        const esMesEnCurso =
+            this.selectedAnio === anioActual && this.selectedMes === mesActual;
+
+        const nombreMes = this.meses.find(m => m.value === this.selectedMes)?.name ?? '';
+
+        if (esMesFuturo) {
+            Swal.fire({
+                title: 'Mes no disponible',
+                html: `No es posible generar el informe de <strong>${nombreMes} ${this.selectedAnio}</strong>.<br><br>
+                       Solo se pueden generar informes de meses que ya hayan finalizado.`,
+                icon: 'info',
+                confirmButtonText: 'Entendido'
+            });
+            return;
+        }
+
+        if (esMesEnCurso) {
+            const ultimoDiaMes = new Date(this.selectedAnio, this.selectedMes, 0).getDate();
+            Swal.fire({
+                title: 'Mes en curso',
+                html: `El informe de <strong>${nombreMes} ${this.selectedAnio}</strong> aún no está disponible.<br><br>
+                       El mes todavía no ha finalizado. Podrás generar este informe a partir del
+                       <strong>1 de ${this.meses.find(m => m.value === (this.selectedMes % 12) + 1)?.name ?? ''} ${this.selectedMes === 12 ? this.selectedAnio + 1 : this.selectedAnio}</strong>
+                       (cuando hayan pasado los ${ultimoDiaMes} días del mes).`,
+                icon: 'info',
+                confirmButtonText: 'Entendido'
+            });
+            return;
+        }
+
         Swal.fire({
             title: 'Generando Extracto...',
             text: 'Por favor espere',
